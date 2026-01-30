@@ -1,12 +1,15 @@
 "use client"
 import { useState } from "react"
+import { Hachi_Maru_Pop } from "next/font/google"
+
+const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] })
 
 export const Header = () => {
   const [open, setOpen] = useState(false); 
 
     return(
         <header className="px-4 md:px-10 py-4 md:py-5 flex justify-between border-b">
-        <div className="text-2xl font-light font-mono">
+        <div className={`text-2xl font-light ${hachiMaruPop.className}`}>
             hirachu
         </div>
         <div className="font-mono font-light">
