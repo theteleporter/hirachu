@@ -17,32 +17,32 @@ export const Footer = () => (
 const footerStuff = [
     {
         id: 1,
-        text: "TEXT",
+        text: "STUDIO",
         urlTo: "https://hdsg.tech"
     },
     {
         id: 2,
-        text: "TEXT",
+        text: "WORKS",
         urlTo: "https://hdsg.tech"
     },
     {
         id: 3,
-        text: "TEXT",
+        text: "BLOG",
         urlTo: "https://hdsg.tech"
     },
     {
         id: 4,
-        text: "TEXT",
+        text: "CONTACT",
         urlTo: "https://hdsg.tech"
     },
     {
         id: 5,
-        text: "TEXT",
+        text: "PRPLICY",
         urlTo: "https://hdsg.tech"
     },
     {
         id: 6,
-        text: "TEXT",
+        text: "TOS",
         urlTo: "https://hdsg.tech"
     }
     

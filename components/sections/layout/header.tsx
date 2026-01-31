@@ -1,35 +1,54 @@
-"use client"
-import { useState } from "react"
-import { Hachi_Maru_Pop } from "next/font/google"
+"use client";
+import { useState } from "react";
+import { Hachi_Maru_Pop } from "next/font/google";
 
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] })
+const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
+
+const menuLinks = [
+  { label: "Home", href: "#" },
+  { label: "About", href: "#" },
+  { label: "Contact", href: "#" },
+];
 
 export const Header = () => {
-  const [open, setOpen] = useState(false); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    return(
-        <header className="px-4 md:px-10 py-4 md:py-5 flex justify-between border-b">
-        <div className={`text-2xl font-light ${hachiMaruPop.className}`}>
-            hirachu
-        </div>
-        <div className="font-mono font-light">
-            <button 
-              type="button" 
-              className="border px-2 cursor-pointer"
-              onClick={() => setOpen(!open)}
+  return (
+    <header className="px-4 md:px-10 py-4 md:py-5 flex justify-between border-b">
+      <div className={`text-2xl font-light ${hachiMaruPop.className}`}>
+        hirachu
+      </div>
+      <div className="font-mono font-light">
+        <button
+          type="button"
+          className="border px-2 cursor-pointer"
+          onClick={() => setIsMenuOpen(true)}
+        >
+          MENU
+        </button>
+        {isMenuOpen && (
+          <div className="fixed top-0 left-0 w-full h-screen bg-black text-white p-4 z-50 flex flex-col">
+            <button
+              type="button"
+              className="self-end border px-2 mb-4 cursor-pointer"
+              onClick={() => setIsMenuOpen(false)}
             >
-                MENU
+              CLOSE
             </button>
-            {open && (
-              <div className="absolute top-16 right-4 bg-white border border-gray-300 rounded shadow-lg p-4">
-                <nav className="flex flex-col gap-2">
-                  <a href="#" className="hover:underline">Home</a>
-                  <a href="#" className="hover:underline">About</a>
-                  <a href="#" className="hover:underline">Contact</a>
-                </nav>
-              </div>
-            )}
-        </div>
-        </header>
-    )
-}
+            <nav className="flex flex-col gap-5 items-start">
+              {menuLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-3xl md:text-5xl font-thin"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+};
