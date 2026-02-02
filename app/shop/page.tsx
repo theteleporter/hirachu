@@ -1,14 +1,25 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Heart, ShoppingCart } from "@phosphor-icons/react";
 import { products, type Product } from "@/lib/products";
 import { useCart } from "@/lib/cart-context";
+import { useSearchParams } from "next/navigation";
 
 export default function ShopPage() {
-  const [filter, setFilter] = useState<"all" | "girl" | "boy">("all");
+  const searchParams = useSearchParams();
+  const filterParam = searchParams.get('filter') as "all" | "girl" | "boy" | "new" | null;
+  const [filter, setFilter] = useState<"all" | "girl" | "boy">(
+    filterParam && (filterParam === "girl" || filterParam === "boy") ? filterParam : "all"
+  );
+  
+  useEffect(() => {
+    if (filterParam && (filterParam === "girl" || filterParam === "boy")) {
+      setFilter(filterParam);
+    }
+  }, [filterParam]);
   
   const filteredProducts = filter === "all" 
     ? products 

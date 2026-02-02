@@ -113,10 +113,6 @@ export const Header = () => {
                         <a href="#" className="hover:underline">TikTok</a>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-xs text-neutral-500 mb-1">SUPPORT</p>
-                      <p className="text-sm">hello@hirachu.com</p>
-                    </div>
                   </div>
                 </motion.div>
               </div>

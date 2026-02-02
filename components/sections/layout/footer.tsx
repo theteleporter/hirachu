@@ -1,43 +1,49 @@
 import Link from "next/link";
-import { InstagramLogo, TwitterLogo, TiktokLogo, Heart, Sparkle } from "@phosphor-icons/react/dist/ssr";
+import { InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 
 export const Footer = () => (
-  <footer className="bg-neutral-50 border-t">
+  <footer className="border-t border-neutral-200">
     {/* Main Footer */}
-    <div className="px-4 md:px-10 py-16 md:py-24">
-      <div className="grid md:grid-cols-12 gap-12 md:gap-8 mb-16">
-        {/* Left - Brand Story */}
-        <div className="md:col-span-5 space-y-6">
+    <div className="px-4 md:px-10 py-20 md:py-24">
+      <div className="max-w-7xl mx-auto">
+        {/* Top Row - Brand + Newsletter */}
+        <div className="grid md:grid-cols-2 gap-12 pb-16 md:pb-20 border-b border-neutral-200">
           <div>
-            <h3 className="font-hachi text-5xl md:text-6xl mb-3 lowercase leading-tight">
+            <h3 className="font-hachi text-4xl md:text-5xl mb-4 lowercase leading-tight">
               hirachu
             </h3>
-            <p className="text-sm text-neutral-600 font-light leading-relaxed max-w-sm">
-              Where every doll tells a story. Handcrafted collectibles that blend kawaii 
-              aesthetics with high fashion sensibilities.
+            <p className="text-base text-neutral-600 font-light leading-relaxed max-w-sm">
+              Handcrafted collectible dolls.<br />
+              Where kawaii meets couture.
             </p>
           </div>
           
-          <div className="flex items-center gap-2 text-xs text-neutral-500">
-            <Heart size={14} weight="fill" className="text-pink-400" />
-            <span>Crafted with love since 2024</span>
+          <div className="flex flex-col justify-end">
+            <p className="text-xs tracking-[0.2em] mb-4 font-medium">STAY UPDATED</p>
+            <div className="flex gap-2">
+              <input 
+                type="email" 
+                placeholder="your@email.com"
+                className="flex-1 px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
+              />
+              <button className="px-6 py-3 border-b border-black text-xs tracking-[0.2em] font-medium hover:bg-black hover:text-white transition-colors">
+                JOIN
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Right - Links Grid */}
-        <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+        {/* Bottom Row - Links Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-16 md:pt-20">
           {/* Shop */}
           <div>
-            <h4 className="text-sm font-medium mb-4 flex items-center gap-2">
-              <Sparkle size={12} weight="fill" />
-              Shop
-            </h4>
-            <nav className="space-y-3">
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">SHOP</h4>
+            <nav className="space-y-4">
               {shopLinks.map((link) => (
                 <Link
                   key={link.text}
                   href={link.urlTo}
-                  className="block text-sm text-neutral-600 hover:text-black hover:translate-x-1 transition-all duration-200"
+                  className="block text-base text-neutral-600 hover:text-black transition-colors"
                 >
                   {link.text}
                 </Link>
@@ -47,13 +53,29 @@ export const Footer = () => (
 
           {/* Info */}
           <div>
-            <h4 className="text-sm font-medium mb-4">Info</h4>
-            <nav className="space-y-3">
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">INFO</h4>
+            <nav className="space-y-4">
               {infoLinks.map((link) => (
                 <Link
                   key={link.text}
                   href={link.urlTo}
-                  className="block text-sm text-neutral-600 hover:text-black hover:translate-x-1 transition-all duration-200"
+                  className="block text-base text-neutral-600 hover:text-black transition-colors"
+                >
+                  {link.text}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">LEGAL</h4>
+            <nav className="space-y-4">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.text}
+                  href={link.urlTo}
+                  className="block text-base text-neutral-600 hover:text-black transition-colors"
                 >
                   {link.text}
                 </Link>
@@ -63,63 +85,32 @@ export const Footer = () => (
 
           {/* Connect */}
           <div>
-            <h4 className="text-sm font-medium mb-4">Connect</h4>
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <p className="text-xs text-neutral-500 uppercase tracking-wide">Follow</p>
-                <div className="flex gap-3">
-                  <Link 
-                    href="#" 
-                    className="w-9 h-9 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300"
-                  >
-                    <InstagramLogo size={16} weight="regular" />
-                  </Link>
-                  <Link 
-                    href="#" 
-                    className="w-9 h-9 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300"
-                  >
-                    <TwitterLogo size={16} weight="regular" />
-                  </Link>
-                  <Link 
-                    href="#" 
-                    className="w-9 h-9 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all duration-300"
-                  >
-                    <TiktokLogo size={16} weight="regular" />
-                  </Link>
-                </div>
-              </div>
-              
-              <div className="pt-4 border-t border-neutral-200">
-                <p className="text-xs text-neutral-500 mb-1">Email</p>
-                <a href="mailto:hello@hirachu.com" className="text-sm hover:underline">
-                  hello@hirachu.com
-                </a>
-              </div>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">CONNECT</h4>
+            <div className="space-y-6">
+              <a 
+                href="mailto:hello@hirachu.com" 
+                className="block text-base text-neutral-600 hover:text-black transition-colors"
+              >
+                hello@hirachu.com
+              </a>
+              <a 
+                href="#" 
+                className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
+              >
+                <InstagramLogo size={18} weight="regular" />
+                Instagram
+              </a>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    {/* Bottom Bar */}
-    <div className="border-t border-neutral-200 px-4 md:px-10 py-6 bg-white">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500">
-        <div className="flex items-center gap-4">
-          <p>© 2026 Hirachu</p>
-          <span className="text-neutral-300">•</span>
-          <p className="font-light">All dolls reserved</p>
-        </div>
-        <div className="flex gap-6">
-          {legalLinks.map((link) => (
-            <Link
-              key={link.text}
-              href={link.urlTo}
-              className="hover:text-black transition-colors"
-            >
-              {link.text}
-            </Link>
-          ))}
-        </div>
+    {/* Copyright Bar */}
+    <div className="border-t border-neutral-200 px-4 md:px-10 py-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
+        <p>© 2026 Hirachu. All dolls reserved.</p>
+        <p className="font-light">Crafted with love in Tokyo</p>
       </div>
     </div>
   </footer>
@@ -127,16 +118,14 @@ export const Footer = () => (
 
 const shopLinks = [
   { text: "All Dolls", urlTo: "/shop" },
-  { text: "New Arrivals", urlTo: "/shop" },
-  { text: "Bestsellers", urlTo: "/shop" },
-  { text: "Accessories", urlTo: "/shop" },
+  { text: "New Arrivals", urlTo: "/shop?filter=new" },
+  { text: "Girl Dolls", urlTo: "/shop?filter=girl" },
+  { text: "Boy Dolls", urlTo: "/shop?filter=boy" },
 ];
 
 const infoLinks = [
-  { text: "About Us", urlTo: "/about" },
-  { text: "Our Story", urlTo: "/about" },
+  { text: "About", urlTo: "/about" },
   { text: "Contact", urlTo: "/contact" },
-  { text: "FAQ", urlTo: "/contact" },
 ];
 
 const legalLinks = [
