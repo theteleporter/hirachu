@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { X } from "@phosphor-icons/react";
+import { XIcon } from "@phosphor-icons/react";
 import { CartButton } from "@/components/cart/cart-button";
 
 const menuLinks = [
@@ -63,7 +63,7 @@ export const Header = () => {
                     className="w-10 h-10 flex items-center justify-center border border-black hover:bg-black hover:text-white transition-all duration-300"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <X size={20} weight="light" />
+                    <XIcon size={20} weight="light" />
                   </button>
                 </div>
 
