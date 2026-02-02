@@ -5,6 +5,8 @@ import { AnnouncementBar } from "@/components/announcement-bar";
 import { Header } from "@/components/sections/layout/header";
 import { Footer } from "@/components/sections/layout/footer";
 import { generateOrganizationSchema } from "@/lib/schema";
+import { CartProvider } from "@/lib/cart-context";
+import { CartDrawer } from "@/components/cart/cart-drawer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,10 +53,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${hachiMaruPop.variable} antialiased font-mono`}
       >
-        <AnnouncementBar />
-        <Header />
-        {children}
-        <Footer />
+        <CartProvider>
+          <AnnouncementBar />
+          <Header />
+          {children}
+          <Footer />
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

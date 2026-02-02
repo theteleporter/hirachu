@@ -6,9 +6,13 @@ import { motion } from "motion/react";
 import { Heart, ShoppingCart, CaretRight } from "@phosphor-icons/react";
 import { getProductBySlug, products } from "@/lib/products";
 import { generateProductSchema } from "@/lib/schema";
+import { useCart } from "@/lib/cart-context";
+import { useState } from "react";
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProductBySlug(params.slug);
+  const { addItem } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
 
   if (!product) {
     notFound();
@@ -98,10 +102,16 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             <div className="space-y-3">
               <button
                 type="button"
-                className="w-full bg-black text-white px-6 py-4 text-sm font-medium hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
+                onClick={() => {
+                  setIsAdding(true);
+                  addItem(product);
+                  setTimeout(() => setIsAdding(false), 1000);
+                }}
+                disabled={isAdding}
+                className="w-full bg-black text-white px-6 py-4 text-sm font-medium hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 disabled:bg-neutral-400"
               >
                 <ShoppingCart size={18} weight="light" />
-                ADD TO CART
+                {isAdding ? 'ADDED!' : 'ADD TO CART'}
               </button>
               
               <button

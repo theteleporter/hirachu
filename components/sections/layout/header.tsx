@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "@phosphor-icons/react";
+import { CartButton } from "@/components/cart/cart-button";
 
 const menuLinks = [
   { label: "Home", href: "/", description: "Back to start" },
@@ -20,13 +21,16 @@ export const Header = () => {
         <Link href="/" className="font-hachi text-2xl font-light">
           Hirachu
         </Link>
-        <button
-          type="button"
-          className="border border-black px-4 py-2 text-sm font-light hover:bg-black hover:text-white transition-all duration-300"
-          onClick={() => setIsMenuOpen(true)}
-        >
-          MENU
-        </button>
+        <div className="flex items-center gap-2">
+          <CartButton />
+          <button
+            type="button"
+            className="border border-black px-4 py-2 text-sm font-light hover:bg-black hover:text-white transition-all duration-300"
+            onClick={() => setIsMenuOpen(true)}
+          >
+            MENU
+          </button>
+        </div>
       </header>
 
       <AnimatePresence>

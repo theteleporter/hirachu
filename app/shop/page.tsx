@@ -3,8 +3,9 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Heart } from "@phosphor-icons/react";
+import { Heart, ShoppingCart } from "@phosphor-icons/react";
 import { products, type Product } from "@/lib/products";
+import { useCart } from "@/lib/cart-context";
 
 export default function ShopPage() {
   const [filter, setFilter] = useState<"all" | "girl" | "boy">("all");
@@ -78,6 +79,8 @@ export default function ShopPage() {
 }
 
 function ProductCard({ product }: { product: Product }) {
+  const { addItem } = useCart();
+  
   return (
     <Link href={`/shop/${product.slug}`} className="group cursor-pointer block">
       <div className="relative aspect-square bg-neutral-100 mb-3 overflow-hidden">
@@ -93,16 +96,27 @@ function ProductCard({ product }: { product: Product }) {
             {product.tag}
           </span>
         )}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            // TODO: Add to wishlist
-          }}
-          className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          <Heart size={16} weight="light" />
-        </button>
+        <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              addItem(product);
+            }}
+            className="w-9 h-9 bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-colors"
+          >
+            <ShoppingCart size={16} weight="bold" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            className="w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors"
+          >
+            <Heart size={16} weight="light" />
+          </button>
+        </div>
       </div>
       <h3 className="text-sm font-medium mb-1">{product.name}</h3>
       <p className="text-sm text-neutral-500">${product.price}</p>

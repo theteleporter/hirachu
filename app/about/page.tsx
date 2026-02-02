@@ -5,159 +5,250 @@ import { motion } from "motion/react";
 export default function AboutPage() {
   return (
     <main>
-      {/* Hero */}
-      <section className="relative h-[50vh] min-h-[400px] w-full overflow-hidden">
-        <Image
-          src="/images/lifestyle-shot.png"
-          alt="About Hirachu"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+      {/* Hero - Editorial Style */}
+      <section className="relative min-h-screen flex items-center border-b">
+        <div className="absolute inset-0 grid md:grid-cols-2">
+          <div className="relative bg-neutral-100">
+            <Image
+              src="/images/lifestyle-shot.png"
+              alt="Hirachu dolls"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="bg-neutral-50"></div>
+        </div>
         
-        <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-16">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="font-hachi text-4xl md:text-6xl text-white lowercase"
-          >
-            our story
-          </motion.h1>
+        <div className="relative z-10 w-full px-4 md:px-10 py-24">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+            <div></div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-col justify-center"
+            >
+              <p className="text-[10px] tracking-[0.3em] mb-6 text-neutral-400">ABOUT</p>
+              <h1 className="font-hachi text-5xl md:text-7xl mb-8 lowercase leading-[1.1]">
+                where<br />
+                kawaii<br />
+                meets<br />
+                couture
+              </h1>
+              <p className="text-base text-neutral-600 font-light leading-relaxed max-w-md">
+                Handcrafted collectible dolls that blur the line between art and companion. 
+                Each piece tells its own story.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="px-4 md:px-10 py-16 md:py-24 max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-xs text-neutral-500 mb-4">WHERE KAWAII MEETS COUTURE</p>
-          <h2 className="text-2xl md:text-3xl font-light mb-8">
-            CRAFTED WITH LOVE, COLLECTED WITH PASSION
-          </h2>
-          
-          <div className="space-y-6 text-sm md:text-base text-neutral-600 font-light leading-relaxed">
-            <p>
-              Hirachu began as a dream — to create dolls that transcend the boundary between 
-              toy and art, between tradition and modernity. Each piece is a labor of love, 
-              meticulously handcrafted by skilled artisans who blend traditional Japanese 
-              dollmaking techniques with contemporary fashion sensibilities.
-            </p>
-            
-            <p>
-              Our name, "Hirachu," draws inspiration from the Japanese words for "flat" (平 - hira) 
-              and "small" (ちゅう - chū), reflecting our philosophy of finding beauty in simplicity 
-              and attention to the smallest details. Every doll tells a story through its hand-painted 
-              features, carefully selected fabrics, and unique personality.
-            </p>
-            
-            <p>
-              We believe that dolls aren't just collectibles — they're companions, expressions of 
-              personal style, and works of art. Whether you're a seasoned collector or discovering 
-              the world of ball-jointed dolls for the first time, each Hirachu doll is designed to 
-              bring joy, inspire creativity, and become a cherished part of your collection.
-            </p>
+      {/* Story - Magazine Layout */}
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-12 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="md:col-span-5"
+            >
+              <p className="text-[10px] tracking-[0.3em] mb-4 text-neutral-400">01 / ORIGIN</p>
+              <h2 className="text-3xl md:text-4xl font-light mb-8 leading-[1.2]">
+                Born from a<br />dream in Tokyo
+              </h2>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:col-span-7 space-y-6 text-base text-neutral-600 font-light leading-relaxed"
+            >
+              <p>
+                Hirachu began in a small studio in Harajuku, where traditional Japanese dollmaking 
+                met contemporary street fashion. We wanted to create something that didn't exist—
+                dolls that felt alive, that could express personality, that collectors would cherish 
+                not just as objects, but as companions.
+              </p>
+              <p>
+                Our name comes from 平 (hira - flat, simple) and ちゅう (chū - small, endearing). 
+                It's this tension between simplicity and detail, between cute and sophisticated, 
+                that defines every piece we create.
+              </p>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Image Break */}
+      <section className="px-4 md:px-10 py-12 md:py-16">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto relative aspect-[16/7] bg-neutral-100 overflow-hidden"
+        >
+          <Image
+            src="/images/product-shot-girl-1.png"
+            alt="Craftsmanship detail"
+            fill
+            className="object-cover"
+          />
         </motion.div>
       </section>
 
-      {/* Values */}
-      <section className="px-4 md:px-10 py-16 md:py-24 bg-neutral-50">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-16 text-center"
-          >
-            <h2 className="text-2xl md:text-3xl font-light mb-4">OUR VALUES</h2>
-            <p className="text-sm text-neutral-600 font-light">What makes Hirachu special</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-            {values.map((value, index) => (
+      {/* Philosophy - Offset Layout */}
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-12 gap-12">
+            <div className="md:col-span-4 md:col-start-3">
               <motion.div
-                key={value.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="text-center"
+                transition={{ duration: 0.6 }}
               >
-                <h3 className="text-lg font-medium mb-3">{value.title}</h3>
-                <p className="text-sm text-neutral-600 font-light leading-relaxed">
-                  {value.description}
-                </p>
+                <p className="text-[10px] tracking-[0.3em] mb-4 text-neutral-400">02 / CRAFT</p>
+                <h2 className="text-3xl md:text-4xl font-light mb-6 leading-[1.2]">
+                  Made by hand,<br />one at a time
+                </h2>
               </motion.div>
-            ))}
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="md:col-span-5 space-y-8"
+            >
+              <div>
+                <h3 className="text-xs tracking-[0.2em] mb-3 font-medium">ARTISAN TRADITION</h3>
+                <p className="text-base text-neutral-600 font-light leading-relaxed">
+                  Every face is hand-painted by skilled artisans. Every outfit is cut and sewn 
+                  individually. No two dolls are exactly alike.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xs tracking-[0.2em] mb-3 font-medium">PREMIUM MATERIALS</h3>
+                <p className="text-base text-neutral-600 font-light leading-relaxed">
+                  High-quality resin bodies, carefully sourced fabrics, and glass eyes that 
+                  capture light beautifully.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-xs tracking-[0.2em] mb-3 font-medium">LIMITED PRODUCTION</h3>
+                <p className="text-base text-neutral-600 font-light leading-relaxed">
+                  Small batches mean every doll is special. When she's gone, she's gone.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Craftsmanship */}
-      <section className="px-4 md:px-10 py-16 md:py-24">
-        <div className="max-w-4xl mx-auto">
+      {/* Values - Simple Text */}
+      <section className="border-y border-neutral-200">
+        <div className="px-4 md:px-10 py-20 md:py-24 border-b border-neutral-200">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 md:gap-16">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h3 className="text-6xl md:text-7xl font-light mb-6 text-neutral-200">01</h3>
+              <p className="text-base text-neutral-600 font-light leading-relaxed">
+                We don't mass produce. We don't cut corners. Every doll gets the time and 
+                attention she deserves.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
+              <h3 className="text-6xl md:text-7xl font-light mb-6 text-neutral-200">02</h3>
+              <p className="text-base text-neutral-600 font-light leading-relaxed">
+                Fashion-forward designs inspired by Tokyo street style, haute couture, 
+                and Japanese pop culture.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-6xl md:text-7xl font-light mb-6 text-neutral-200">03</h3>
+              <p className="text-base text-neutral-600 font-light leading-relaxed">
+                Built for collectors who understand that dolls aren't toys—they're art, 
+                companions, and expressions of self.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Quote */}
+        <div className="px-4 md:px-10 py-20 md:py-24 bg-neutral-50">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <p className="font-hachi text-3xl md:text-5xl mb-6 lowercase leading-[1.4]">
+              "every doll has a soul,<br />
+              waiting for the right person<br />
+              to bring her home"
+            </p>
+            <p className="text-[10px] text-neutral-400 tracking-[0.3em]">— HIRACHU STUDIO</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA - Minimal */}
+      <section className="px-4 md:px-10 py-24 md:py-32">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl md:text-3xl font-light mb-8">THE HIRACHU DIFFERENCE</h2>
-            
-            <div className="space-y-8">
-              {features.map((feature, index) => (
-                <div key={feature.title} className="border-b pb-6 last:border-b-0">
-                  <h3 className="text-lg font-medium mb-2">{feature.title}</h3>
-                  <p className="text-sm text-neutral-600 font-light leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
-            </div>
+            <p className="text-[10px] tracking-[0.3em] mb-4 text-neutral-400">READY?</p>
+            <h2 className="font-hachi text-4xl md:text-6xl lowercase leading-[1.1]">
+              find your<br />companion
+            </h2>
           </motion.div>
+
+          <motion.a
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            href="/shop"
+            className="group flex items-center gap-4"
+          >
+            <span className="text-xs tracking-[0.3em] font-medium">BROWSE COLLECTION</span>
+            <div className="w-12 h-12 border border-black flex items-center justify-center group-hover:bg-black transition-colors">
+              <span className="text-2xl group-hover:text-white transition-colors">→</span>
+            </div>
+          </motion.a>
         </div>
       </section>
     </main>
   );
 }
-
-const values = [
-  {
-    title: "ARTISAN CRAFTSMANSHIP",
-    description: "Each doll is handcrafted by skilled artisans with years of experience in traditional dollmaking techniques.",
-  },
-  {
-    title: "UNIQUE DESIGN",
-    description: "We blend kawaii aesthetics with high fashion, creating dolls that are both adorable and sophisticated.",
-  },
-  {
-    title: "LIMITED EDITIONS",
-    description: "Every piece is produced in small batches, ensuring exclusivity and collectible value.",
-  },
-];
-
-const features = [
-  {
-    title: "Hand-Painted Features",
-    description: "Every face is painted by hand, ensuring each doll has its own unique expression and character.",
-  },
-  {
-    title: "Premium Materials",
-    description: "We use only the finest materials — from high-quality resin for the body to carefully sourced fabrics for the outfits.",
-  },
-  {
-    title: "Articulated Joints",
-    description: "Full articulation allows for dynamic posing and photography, bringing your doll to life.",
-  },
-  {
-    title: "Fashion-Forward Styling",
-    description: "Our design team creates original outfits inspired by contemporary fashion, streetwear, and haute couture.",
-  },
-];

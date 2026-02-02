@@ -2,7 +2,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Heart } from "@phosphor-icons/react";
+import { Heart, ShoppingCart } from "@phosphor-icons/react";
+import { useCart } from "@/lib/cart-context";
+import { getProductBySlug } from "@/lib/products";
 
 const featuredDolls = [
   { id: 1, name: "Sakura", price: 248, image: "/images/product-shot-girl-1.png", tag: "BESTSELLER", slug: "sakura" },
@@ -12,6 +14,8 @@ const featuredDolls = [
 ];
 
 export const FeaturedDolls = () => {
+  const { addItem } = useCart();
+  
   return (
     <section className="px-4 md:px-10 py-16 md:py-24">
       <div className="flex justify-between items-end mb-10">
@@ -49,15 +53,28 @@ export const FeaturedDolls = () => {
                     {doll.tag}
                   </span>
                 )}
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }}
-                  className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  <Heart size={16} weight="light" />
-                </button>
+                <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const product = getProductBySlug(doll.slug);
+                      if (product) addItem(product);
+                    }}
+                    className="w-9 h-9 bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-colors"
+                  >
+                    <ShoppingCart size={16} weight="bold" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                    }}
+                    className="w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors"
+                  >
+                    <Heart size={16} weight="light" />
+                  </button>
+                </div>
               </div>
               <h3 className="text-sm font-medium mb-1">{doll.name}</h3>
               <p className="text-sm text-neutral-500">${doll.price}</p>
