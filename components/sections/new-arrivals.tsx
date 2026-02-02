@@ -29,7 +29,7 @@ export const NewArrivals = () => {
             <h2 className="text-2xl md:text-3xl font-light">NEW ARRIVALS</h2>
           </div>
           <a
-            href="/shop"
+            href="/shop?filter=new"
             className="flex items-center gap-2 text-sm border-b border-white pb-1 hover:border-neutral-500 hover:text-neutral-400 transition-colors"
           >
             EXPLORE <ArrowRight size={14} />
