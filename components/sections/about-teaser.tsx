@@ -45,12 +45,12 @@ export const AboutTeaser = () => {
           <p className="text-sm md:text-base text-neutral-600 font-light leading-relaxed mb-8 normal-case">
             We believe dolls aren&apos;t just toys — they&apos;re art, companions, and expressions of personal style.
           </p>
-          <button
-            type="button"
-            className="self-start border border-black px-6 py-3 text-sm hover:bg-black hover:text-white transition-all duration-300"
+          <a
+            href="/about"
+            className="self-start border border-black px-6 py-3 text-sm hover:bg-black hover:text-white transition-all duration-300 inline-block"
           >
             LEARN MORE
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

@@ -33,18 +33,18 @@ export const Hero = () => {
             HANDCRAFTED COLLECTIBLE DOLLS FOR THE DISCERNING COLLECTOR. WHERE KAWAII MEETS COUTURE.
           </p>
           <div className="flex gap-4">
-            <button
-              type="button"
+            <a
+              href="/shop"
               className="bg-white text-black px-6 py-3 text-sm font-medium hover:bg-black hover:text-white border border-white transition-all duration-300"
             >
               SHOP NOW
-            </button>
-            <button
-              type="button"
+            </a>
+            <a
+              href="/about"
               className="border border-white text-white px-6 py-3 text-sm font-medium hover:bg-white hover:text-black transition-all duration-300"
             >
               OUR STORY
-            </button>
+            </a>
           </div>
         </motion.div>
       </div>

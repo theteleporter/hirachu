@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/sections/layout/header";
 import { Footer } from "@/components/sections/layout/footer";
+import { generateOrganizationSchema } from "@/lib/schema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hirachu",
-  description: "A lovely doll store.",
+  title: "Hirachu - Handcrafted Collectible Dolls",
+  description: "Handcrafted collectible dolls where kawaii meets couture. Limited edition BJD dolls with unique styling and artisan craftsmanship.",
+  openGraph: {
+    title: "Hirachu - Handcrafted Collectible Dolls",
+    description: "Handcrafted collectible dolls where kawaii meets couture.",
+    type: "website",
+  },
+  keywords: ["collectible dolls", "BJD", "ball jointed dolls", "kawaii", "handcrafted", "artisan dolls"],
 };
 
 export default function RootLayout({
@@ -24,8 +31,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const orgSchema = generateOrganizationSchema();
+  
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased font-mono`}
       >
