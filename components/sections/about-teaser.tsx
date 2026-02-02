@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Hachi_Maru_Pop } from "next/font/google";
-
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
 
 export const AboutTeaser = () => {
   return (
@@ -32,9 +29,7 @@ export const AboutTeaser = () => {
           className="flex flex-col justify-center"
         >
           <p className="text-xs text-neutral-500 mb-2">OUR STORY</p>
-          <h2
-            className={`${hachiMaruPop.className} text-3xl md:text-4xl lg:text-5xl mb-6 lowercase`}
-          >
+          <h2 className="font-hachi text-3xl md:text-4xl lg:text-5xl mb-6 lowercase">
             crafted with love
           </h2>
           <p className="text-sm md:text-base text-neutral-600 font-light leading-relaxed mb-6 normal-case">

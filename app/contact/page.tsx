@@ -1,10 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { Hachi_Maru_Pop } from "next/font/google";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
-
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -37,7 +34,7 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h1 className={`${hachiMaruPop.className} text-3xl md:text-5xl mb-4 lowercase`}>
+          <h1 className="font-hachi text-3xl md:text-5xl mb-4 lowercase">
             get in touch
           </h1>
           <p className="text-sm text-neutral-600 font-light">

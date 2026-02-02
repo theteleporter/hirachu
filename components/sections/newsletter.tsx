@@ -2,9 +2,6 @@
 import { useState } from "react";
 import { motion } from "motion/react";
 import { PaperPlaneTilt } from "@phosphor-icons/react";
-import { Hachi_Maru_Pop } from "next/font/google";
-
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -26,9 +23,7 @@ export const Newsletter = () => {
         className="max-w-xl mx-auto text-center"
       >
         <p className="text-xs text-neutral-500 mb-2">STAY IN THE LOOP</p>
-        <h2
-          className={`${hachiMaruPop.className} text-2xl md:text-3xl mb-4 lowercase`}
-        >
+        <h2 className="font-hachi text-2xl md:text-3xl mb-4 lowercase">
           join the family
         </h2>
         <p className="text-sm text-neutral-600 font-light mb-8 normal-case">

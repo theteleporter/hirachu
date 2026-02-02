@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Hachi_Maru_Pop } from "next/font/google";
-
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
 
 export const Hero = () => {
   return (
@@ -24,9 +21,7 @@ export const Hero = () => {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-2xl"
         >
-          <h1
-            className={`${hachiMaruPop.className} text-4xl md:text-6xl lg:text-7xl text-white mb-4 lowercase`}
-          >
+          <h1 className="font-hachi text-4xl md:text-6xl lg:text-7xl text-white mb-4 lowercase">
             hirachu
           </h1>
           <p className="text-white/90 text-sm md:text-base font-light tracking-wide mb-8 max-w-md">

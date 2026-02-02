@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Hachi_Maru_Pop } from "next/font/google";
 import "./globals.css";
+import { AnnouncementBar } from "@/components/announcement-bar";
 import { Header } from "@/components/sections/layout/header";
 import { Footer } from "@/components/sections/layout/footer";
 import { generateOrganizationSchema } from "@/lib/schema";
@@ -13,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const hachiMaruPop = Hachi_Maru_Pop({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-hachi-maru-pop",
 });
 
 export const metadata: Metadata = {
@@ -42,8 +49,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-mono`}
+        className={`${geistSans.variable} ${geistMono.variable} ${hachiMaruPop.variable} antialiased font-mono`}
       >
+        <AnnouncementBar />
         <Header />
         {children}
         <Footer />

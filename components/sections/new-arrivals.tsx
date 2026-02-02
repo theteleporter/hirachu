@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight } from "@phosphor-icons/react";
+import useEmblaCarousel from "embla-carousel-react";
 
 const newArrivals = [
   { id: 1, name: "Ren", price: 278, image: "/images/product-shot-boy-1.png", slug: "ren" },
@@ -13,6 +14,12 @@ const newArrivals = [
 ];
 
 export const NewArrivals = () => {
+  const [emblaRef] = useEmblaCarousel({ 
+    align: "start", 
+    loop: false,
+    dragFree: true,
+  });
+
   return (
     <section className="py-16 md:py-24 bg-black text-white">
       <div className="px-4 md:px-10 mb-10">
@@ -41,9 +48,9 @@ export const NewArrivals = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black" />
       </div>
 
-      {/* Horizontal scroll */}
-      <div className="overflow-x-auto scrollbar-hide">
-        <div className="flex gap-4 md:gap-6 px-4 md:px-10 pb-4">
+      {/* Embla Carousel */}
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-4 md:gap-6 px-4 md:px-10">
           {newArrivals.map((doll, index) => (
             <motion.div
               key={doll.id}
@@ -51,7 +58,7 @@ export const NewArrivals = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex-shrink-0 w-[200px] md:w-[280px]"
+              className="flex-[0_0_200px] md:flex-[0_0_280px]"
             >
               <Link href={`/shop/${doll.slug}`} className="group cursor-pointer block">
                 <div className="relative aspect-square bg-neutral-900 mb-3 overflow-hidden">

@@ -10,6 +10,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-hachi: var(--font-hachi-maru-pop);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,4 +28,8 @@ body {
 
 button {
   cursor: pointer;
+}
+
+.font-hachi {
+  font-family: var(--font-hachi-maru-pop);
 }

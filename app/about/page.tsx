@@ -1,9 +1,6 @@
 "use client";
 import Image from "next/image";
 import { motion } from "motion/react";
-import { Hachi_Maru_Pop } from "next/font/google";
-
-const hachiMaruPop = Hachi_Maru_Pop({ weight: "400", subsets: ["latin"] });
 
 export default function AboutPage() {
   return (
@@ -24,7 +21,7 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className={`${hachiMaruPop.className} text-4xl md:text-6xl text-white lowercase`}
+            className="font-hachi text-4xl md:text-6xl text-white lowercase"
           >
             our story
           </motion.h1>
