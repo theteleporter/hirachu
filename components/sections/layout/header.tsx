@@ -16,7 +16,7 @@ export const Header = () => {
   return (
     <header className="px-4 md:px-10 py-4 md:py-5 flex justify-between border-b">
       <div className={`text-2xl font-light ${hachiMaruPop.className}`}>
-        hirachu
+        Hirachu
       </div>
       <div className="font-mono font-light">
         <button
