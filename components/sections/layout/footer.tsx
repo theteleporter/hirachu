@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { InstagramLogo } from "@phosphor-icons/react/dist/ssr";
 
 export const Footer = () => (
   <footer className="border-t border-neutral-200">
@@ -13,16 +12,19 @@ export const Footer = () => (
               hirachu
             </h3>
             <p className="text-base text-neutral-600 font-light leading-relaxed max-w-sm">
-              Handcrafted collectible dolls.<br />
+              Handcrafted collectible dolls.
+              <br />
               Where kawaii meets couture.
             </p>
           </div>
-          
+
           <div className="flex flex-col justify-end">
-            <p className="text-xs tracking-[0.2em] mb-4 font-medium">STAY UPDATED</p>
+            <p className="text-xs tracking-[0.2em] mb-4 font-medium">
+              STAY UPDATED
+            </p>
             <div className="flex gap-2">
-              <input 
-                type="email" 
+              <input
+                type="email"
                 placeholder="your@email.com"
                 className="flex-1 px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
               />
@@ -37,7 +39,9 @@ export const Footer = () => (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-16 md:pt-20">
           {/* Shop */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">SHOP</h4>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">
+              SHOP
+            </h4>
             <nav className="space-y-4">
               {shopLinks.map((link) => (
                 <Link
@@ -53,7 +57,9 @@ export const Footer = () => (
 
           {/* Info */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">INFO</h4>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">
+              INFO
+            </h4>
             <nav className="space-y-4">
               {infoLinks.map((link) => (
                 <Link
@@ -69,7 +75,9 @@ export const Footer = () => (
 
           {/* Legal */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">LEGAL</h4>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">
+              LEGAL
+            </h4>
             <nav className="space-y-4">
               {legalLinks.map((link) => (
                 <Link
@@ -85,20 +93,21 @@ export const Footer = () => (
 
           {/* Connect */}
           <div>
-            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">CONNECT</h4>
+            <h4 className="text-xs tracking-[0.2em] mb-6 font-medium text-neutral-400">
+              CONNECT
+            </h4>
             <div className="space-y-6">
-              <a 
-                href="mailto:hello@hirachu.com" 
-                className="block text-base text-neutral-600 hover:text-black transition-colors"
-              >
-                hello@hirachu.com
-              </a>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
               >
-                <InstagramLogo size={18} weight="regular" />
                 Instagram
+              </a>
+              <a
+                href="#"
+                className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
+              >
+                Twitter
               </a>
             </div>
           </div>

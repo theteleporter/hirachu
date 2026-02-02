@@ -108,9 +108,18 @@ export const Header = () => {
                     <div>
                       <p className="text-xs text-neutral-500 mb-1">FOLLOW US</p>
                       <div className="flex gap-4 text-sm">
-                        <a href="#" className="hover:underline">Instagram</a>
-                        <a href="#" className="hover:underline">Twitter</a>
-                        <a href="#" className="hover:underline">TikTok</a>
+                        <a
+                          href="https://instagram.com/hirachu"
+                          className="hover:underline"
+                        >
+                          Instagram
+                        </a>
+                        <a
+                          href="https://x.com/hirachu"
+                          className="hover:underline"
+                        >
+                          Twitter
+                        </a>
                       </div>
                     </div>
                   </div>

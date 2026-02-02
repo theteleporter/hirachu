@@ -37,10 +37,6 @@ export function generateOrganizationSchema(
     description: "Handcrafted collectible dolls where kawaii meets couture",
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
-    sameAs: [
-      "https://instagram.com/hirachu",
-      "https://twitter.com/hirachu",
-      "https://tiktok.com/@hirachu",
-    ],
+    sameAs: ["https://instagram.com/hirachu", "https://twitter.com/hirachu"],
   };
 }

@@ -1,7 +1,11 @@
 "use client";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { PaperPlaneTilt, InstagramLogo, EnvelopeSimple } from "@phosphor-icons/react/dist/ssr";
+import {
+  PaperPlaneTiltIcon,
+  InstagramLogoIcon,
+  XLogoIcon,
+} from "@phosphor-icons/react/dist/ssr";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -19,7 +23,7 @@ export default function ContactPage() {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -35,13 +39,16 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <p className="text-[10px] tracking-[0.3em] mb-6 text-neutral-400">CONTACT</p>
+            <p className="text-[10px] tracking-[0.3em] mb-6 text-neutral-400">
+              CONTACT
+            </p>
             <h1 className="font-hachi text-5xl md:text-7xl mb-8 lowercase leading-[1.1]">
               let's talk
             </h1>
             <p className="text-base text-neutral-600 font-light leading-relaxed">
-              Questions about our dolls? Want to discuss a custom order? We're here to help.
-              Reach out and we'll get back to you within 24-48 hours.
+              Questions about our dolls? Want to discuss a custom order? We're
+              here to help. Reach out and we'll get back to you within 24-48
+              hours.
             </p>
           </motion.div>
         </div>
@@ -60,7 +67,10 @@ export default function ContactPage() {
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-xs tracking-[0.2em] font-medium mb-3">
+                <label
+                  htmlFor="name"
+                  className="block text-xs tracking-[0.2em] font-medium mb-3"
+                >
                   NAME
                 </label>
                 <input
@@ -75,7 +85,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-xs tracking-[0.2em] font-medium mb-3">
+                <label
+                  htmlFor="email"
+                  className="block text-xs tracking-[0.2em] font-medium mb-3"
+                >
                   EMAIL
                 </label>
                 <input
@@ -90,7 +103,10 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-xs tracking-[0.2em] font-medium mb-3">
+                <label
+                  htmlFor="message"
+                  className="block text-xs tracking-[0.2em] font-medium mb-3"
+                >
                   MESSAGE
                 </label>
                 <textarea
@@ -108,9 +124,15 @@ export default function ContactPage() {
                 type="submit"
                 className="group flex items-center gap-4 pt-4"
               >
-                <span className="text-xs tracking-[0.3em] font-medium">SEND MESSAGE</span>
+                <span className="text-xs tracking-[0.3em] font-medium">
+                  SEND MESSAGE
+                </span>
                 <div className="w-12 h-12 border border-black flex items-center justify-center group-hover:bg-black transition-colors">
-                  <PaperPlaneTilt size={20} weight="regular" className="group-hover:text-white transition-colors" />
+                  <PaperPlaneTiltIcon
+                    size={20}
+                    weight="regular"
+                    className="group-hover:text-white transition-colors"
+                  />
                 </div>
               </button>
             </form>
@@ -125,18 +147,9 @@ export default function ContactPage() {
             className="md:col-span-5 space-y-12"
           >
             <div>
-              <h3 className="text-xs tracking-[0.2em] mb-4 font-medium text-neutral-400">EMAIL</h3>
-              <a 
-                href="mailto:hello@hirachu.com" 
-                className="text-base hover:opacity-60 transition-opacity flex items-center gap-2"
-              >
-                <EnvelopeSimple size={20} weight="light" />
-                hello@hirachu.com
-              </a>
-            </div>
-
-            <div>
-              <h3 className="text-xs tracking-[0.2em] mb-4 font-medium text-neutral-400">HOURS</h3>
+              <h3 className="text-xs tracking-[0.2em] mb-4 font-medium text-neutral-400">
+                HOURS
+              </h3>
               <div className="space-y-2 text-base text-neutral-600 font-light">
                 <p>Mon - Fri: 9am - 6pm EST</p>
                 <p>Sat: 10am - 4pm EST</p>
@@ -145,13 +158,21 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <h3 className="text-xs tracking-[0.2em] mb-4 font-medium text-neutral-400">SOCIAL</h3>
+              <h3 className="text-xs tracking-[0.2em] mb-4 font-medium text-neutral-400">
+                SOCIALS
+              </h3>
               <div className="flex gap-3">
-                <a 
-                  href="#" 
+                <a
+                  href="https://instagram.com/hirachu"
                   className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all"
                 >
-                  <InstagramLogo size={18} weight="regular" />
+                  <InstagramLogoIcon size={18} weight="regular" />
+                </a>
+                <a
+                  href="https://x.com/hirachu"
+                  className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all"
+                >
+                  <XLogoIcon size={18} weight="regular" />
                 </a>
               </div>
             </div>
@@ -169,7 +190,9 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="mb-16"
           >
-            <p className="text-[10px] tracking-[0.3em] mb-4 text-neutral-400">FAQ</p>
+            <p className="text-[10px] tracking-[0.3em] mb-4 text-neutral-400">
+              FAQ
+            </p>
             <h2 className="text-3xl md:text-4xl font-light leading-[1.2]">
               Common questions
             </h2>
@@ -200,26 +223,32 @@ export default function ContactPage() {
 const faqs = [
   {
     question: "Do you ship internationally?",
-    answer: "Yes, we ship worldwide with tracked shipping. Delivery times vary by location.",
+    answer:
+      "Yes, we ship worldwide with tracked shipping. Delivery times vary by location.",
   },
   {
     question: "Can I return or exchange a doll?",
-    answer: "Yes, within 30 days of delivery in original condition with all packaging.",
+    answer:
+      "Yes, within 30 days of delivery in original condition with all packaging.",
   },
   {
     question: "Do you accept custom orders?",
-    answer: "We occasionally take custom commissions. Contact us to discuss your vision.",
+    answer:
+      "We occasionally take custom commissions. Contact us to discuss your vision.",
   },
   {
     question: "How long does production take?",
-    answer: "Each doll is made to order. Production typically takes 4-6 weeks before shipping.",
+    answer:
+      "Each doll is made to order. Production typically takes 4-6 weeks before shipping.",
   },
   {
     question: "Are the dolls limited edition?",
-    answer: "Yes, all our dolls are produced in small batches. Once sold out, they're retired.",
+    answer:
+      "Yes, all our dolls are produced in small batches. Once sold out, they're retired.",
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We accept all major credit cards, PayPal, and Apple Pay through our secure checkout.",
+    answer:
+      "We accept all major credit cards, PayPal, and Apple Pay through our secure checkout.",
   },
 ];
