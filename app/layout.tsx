@@ -8,24 +8,33 @@ import { generateOrganizationSchema } from "@/lib/schema";
 import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const hachiMaruPop = Hachi_Maru_Pop({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-hachi-maru-pop",
+  display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://hirachu.vercel.app'),
   title: "Hirachu - Handcrafted Collectible Dolls",
   description:
     "Handcrafted collectible dolls where kawaii meets couture. Limited edition BJD dolls with unique styling and artisan craftsmanship.",
@@ -33,6 +42,20 @@ export const metadata: Metadata = {
     title: "Hirachu - Handcrafted Collectible Dolls",
     description: "Handcrafted collectible dolls where kawaii meets couture.",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Hirachu - Handcrafted Japanese Dolls",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Hirachu - Handcrafted Collectible Dolls",
+    description: "Handcrafted collectible dolls where kawaii meets couture.",
+    images: ["/og-image.png"],
   },
   keywords: [
     "collectible dolls",
@@ -70,6 +93,8 @@ export default function RootLayout({
             {children}
             <Footer />
             <CartDrawer />
+            <Analytics />
+            <SpeedInsights />
           </WishlistProvider>
         </CartProvider>
       </body>

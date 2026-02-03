@@ -18,6 +18,7 @@ export const AboutTeaser = () => {
             alt="Hirachu craftsmanship"
             fill
             className="object-cover"
+            loading="lazy"
           />
         </motion.div>
 

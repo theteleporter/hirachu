@@ -29,8 +29,8 @@ export async function shopifyGraphQL<T>(
         variables,
       }),
       signal: controller.signal,
-      // @ts-ignore - Next.js specific
-      cache: 'no-store', // Disable cache for now to ensure fresh data
+      // @ts-ignore - Next.js specific caching with ISR
+      next: { revalidate: 3600 }, // Revalidate every hour (ISR)
     });
 
     clearTimeout(timeoutId);

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { XIcon, HeartIcon } from "@phosphor-icons/react/dist/ssr";
 import { CartButton } from "@/components/cart/cart-button";
 import { useWishlist } from "@/lib/wishlist-context";
+import { ProductSearch } from "@/components/product-search";
 
 const menuLinks = [
   { label: "Home", href: "/" },
@@ -37,6 +38,7 @@ export const Header = () => {
           Hirachu
         </Link>
         <div className="flex items-center gap-2">
+          <ProductSearch />
           <Link
             href="/wishlist"
             className="relative p-2 hover:bg-neutral-100 rounded-full transition-colors"

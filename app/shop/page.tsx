@@ -9,6 +9,8 @@ import { useWishlist } from "@/lib/wishlist-context";
 import { useSearchParams } from "next/navigation";
 import { useShopifyProducts } from "@/lib/use-shopify";
 
+export const dynamic = 'force-dynamic'; // Ensure client-side data fetching
+
 export default function ShopPage() {
   const searchParams = useSearchParams();
   const filterParam = searchParams.get('filter') as "all" | "girl" | "boy" | "new" | null;

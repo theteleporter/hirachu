@@ -92,6 +92,7 @@ export const NewArrivals = () => {
                     alt={product.name}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                 </div>
                 <div className="flex justify-between items-center">

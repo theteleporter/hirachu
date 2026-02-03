@@ -5,12 +5,40 @@ import { PaperPlaneTiltIcon } from "@phosphor-icons/react/dist/ssr";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Connect to Shopify/Klaviyo
-    console.log("Subscribe:", email);
-    setEmail("");
+    setStatus("loading");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus("success");
+        setMessage(data.message);
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error);
+      }
+    } catch (error) {
+      setStatus("error");
+      setMessage("Failed to subscribe. Please try again.");
+    }
+
+    // Reset status after 3 seconds
+    setTimeout(() => {
+      setStatus("idle");
+      setMessage("");
+    }, 3000);
   };
 
   return (
@@ -38,15 +66,23 @@ export const Newsletter = () => {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="YOUR EMAIL"
             required
-            className="flex-1 px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-black transition-colors placeholder:text-neutral-400"
+            disabled={status === "loading"}
+            className="flex-1 px-4 py-3 bg-white border border-neutral-300 text-sm focus:outline-none focus:border-black transition-colors placeholder:text-neutral-400 disabled:opacity-50"
           />
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 text-sm hover:bg-neutral-800 transition-colors"
+            disabled={status === "loading"}
+            className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 text-sm hover:bg-neutral-800 transition-colors disabled:opacity-50"
           >
-            SUBSCRIBE <PaperPlaneTiltIcon size={16} weight="light" />
+            {status === "loading" ? "SUBSCRIBING..." : "SUBSCRIBE"} <PaperPlaneTiltIcon size={16} weight="light" />
           </button>
         </form>
+
+        {message && (
+          <p className={`text-sm mt-4 ${status === "success" ? "text-green-600" : "text-red-600"}`}>
+            {message}
+          </p>
+        )}
 
         <p className="text-[10px] text-neutral-400 mt-4 normal-case">
           By subscribing, you agree to receive marketing emails. Unsubscribe anytime.
