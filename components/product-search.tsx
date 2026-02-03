@@ -33,7 +33,8 @@ export const ProductSearch = () => {
         (product) =>
           product.name.toLowerCase().includes(query) ||
           product.description.toLowerCase().includes(query) ||
-          product.category?.toLowerCase().includes(query)
+          product.category?.toLowerCase().includes(query) ||
+          product.slug.toLowerCase().includes(query)
       )
       .slice(0, 8);
 
@@ -94,7 +95,7 @@ export const ProductSearch = () => {
             className="relative w-full max-w-xl cmdk-dialog-enter"
             style={{ animation: !open ? 'cmdkDialogExit 150ms ease-out forwards' : undefined }}
           >
-            <Command label="Product Search" loop>
+            <Command label="Product Search" loop shouldFilter={false}>
               <div className="bg-white rounded-xl shadow-2xl border border-neutral-200/80 overflow-hidden backdrop-blur-xl">
                 {/* Hidden title for accessibility */}
                 <h2 id="search-title" className="sr-only">Search for dolls</h2>
