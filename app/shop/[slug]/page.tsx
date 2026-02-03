@@ -12,14 +12,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   
+  // Default metadata in case of errors
+  const defaultMetadata: Metadata = {
+    title: "Hirachu Doll | Hirachu",
+    description: "Handcrafted collectible doll from Hirachu's limited collection",
+    openGraph: {
+      images: ["/api/og?title=Hirachu%20Doll&subtitle=Limited%20Collection"],
+    },
+  };
+  
   try {
     const product = await getServerProduct(slug);
 
     if (!product) {
-      return {
-        title: "Product Not Found | Hirachu",
-      };
+      return defaultMetadata;
     }
+
+    const ogTitle = encodeURIComponent(product.name);
+    const ogSubtitle = encodeURIComponent(`$${product.price} · ${product.category === 'girl' ? 'Girl' : 'Boy'} Doll`);
 
     return {
       title: `${product.name} - $${product.price} | Hirachu`,
@@ -27,15 +37,26 @@ export async function generateMetadata({
       openGraph: {
         title: `${product.name} | Hirachu`,
         description: product.description,
-        images: [{ url: product.image, alt: product.name }],
+        images: [
+          {
+            url: `/api/og?title=${ogTitle}&subtitle=${ogSubtitle}&type=product`,
+            width: 1200,
+            height: 630,
+            alt: product.name,
+          },
+        ],
         type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${product.name} | Hirachu`,
+        description: product.description,
+        images: [`/api/og?title=${ogTitle}&subtitle=${ogSubtitle}&type=product`],
       },
     };
   } catch (error) {
-    console.error("Error generating metadata:", error);
-    return {
-      title: "Product | Hirachu",
-    };
+    // Silently use default metadata on network errors
+    return defaultMetadata;
   }
 }
 
