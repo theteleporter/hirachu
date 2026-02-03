@@ -2,25 +2,48 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
-import { Heart, ShoppingCart, CaretRight } from "@phosphor-icons/react";
-import { getProductBySlug, products } from "@/lib/products";
+import { HeartIcon, ShoppingCartIcon, CaretRightIcon } from "@phosphor-icons/react/dist/ssr";
 import { generateProductSchema } from "@/lib/schema";
 import { useCart } from "@/lib/cart-context";
-import { useState } from "react";
+import { useWishlist } from "@/lib/wishlist-context";
+import { useState, useMemo } from "react";
+import { useShopifyProduct, useShopifyProducts } from "@/lib/use-shopify";
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
-  const product = getProductBySlug(params.slug);
+  const { product, loading, error } = useShopifyProduct(params.slug);
+  const { products: allProducts } = useShopifyProducts();
   const { addItem } = useCart();
+  const { toggleItem, isInWishlist } = useWishlist();
   const [isAdding, setIsAdding] = useState(false);
 
-  if (!product) {
-    notFound();
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    return allProducts
+      .filter((p) => p.category === product.category && p.id !== product.id)
+      .slice(0, 4);
+  }, [product, allProducts]);
+
+  if (loading) {
+    return (
+      <main className="px-4 md:px-10 py-12 md:py-16">
+        <div className="animate-pulse">
+          <div className="h-8 bg-neutral-200 mb-8 w-1/3" />
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="aspect-square bg-neutral-200" />
+            <div>
+              <div className="h-6 bg-neutral-200 mb-4 w-3/4" />
+              <div className="h-4 bg-neutral-200 mb-2 w-full" />
+              <div className="h-4 bg-neutral-200 mb-8 w-5/6" />
+            </div>
+          </div>
+        </div>
+      </main>
+    );
   }
 
-  const relatedProducts = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  if (error || !product) {
+    notFound();
+  }
 
   const schema = generateProductSchema(product);
 
@@ -37,11 +60,11 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <Link href="/" className="hover:text-black transition-colors">
             Home
           </Link>
-          <CaretRight size={12} weight="bold" />
+          <CaretRightIcon size={12} weight="bold" />
           <Link href="/shop" className="hover:text-black transition-colors">
             Shop
           </Link>
-          <CaretRight size={12} weight="bold" />
+          <CaretRightIcon size={12} weight="bold" />
           <span className="text-black">{product.name}</span>
         </div>
       </div>
@@ -50,12 +73,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       <div className="px-4 md:px-10 py-12 md:py-16">
         <div className="grid md:grid-cols-2 gap-8 md:gap-16">
           {/* Image */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative aspect-square bg-neutral-100 overflow-hidden"
-          >
+          <div className="relative aspect-square bg-neutral-100 overflow-hidden">
             <Image
               src={product.image}
               alt={product.name}
@@ -64,15 +82,10 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-          </motion.div>
+          </div>
 
           {/* Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-col"
-          >
+          <div className="flex flex-col">
             {product.tag && (
               <span className="inline-block bg-black text-white text-[10px] px-2 py-1 mb-4 w-fit">
                 {product.tag}
@@ -110,16 +123,21 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 disabled={isAdding}
                 className="w-full bg-black text-white px-6 py-4 text-sm font-medium hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 disabled:bg-neutral-400"
               >
-                <ShoppingCart size={18} weight="light" />
+                <ShoppingCartIcon size={18} weight="light" />
                 {isAdding ? 'ADDED!' : 'ADD TO CART'}
               </button>
               
               <button
                 type="button"
-                className="w-full border border-black text-black px-6 py-4 text-sm font-medium hover:bg-black hover:text-white transition-colors flex items-center justify-center gap-2"
+                onClick={() => toggleItem(product)}
+                className={`w-full px-6 py-4 text-sm font-medium transition-colors flex items-center justify-center gap-2 ${
+                  isInWishlist(product.slug)
+                    ? "bg-pink-600 text-white hover:bg-pink-700"
+                    : "border border-black text-black hover:bg-black hover:text-white"
+                }`}
               >
-                <Heart size={18} weight="light" />
-                ADD TO WISHLIST
+                <HeartIcon size={18} weight={isInWishlist(product.slug) ? "fill" : "light"} />
+                {isInWishlist(product.slug) ? 'IN WISHLIST' : 'ADD TO WISHLIST'}
               </button>
             </div>
 
@@ -130,7 +148,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 ✓ 30-day return policy
               </p>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useCart } from '@/lib/cart-context';
-import { ShoppingBag } from '@phosphor-icons/react/dist/ssr';
+import { ShoppingBagIcon } from '@phosphor-icons/react/dist/ssr';
 import { motion, AnimatePresence } from 'motion/react';
 
 export function CartButton() {
@@ -13,7 +13,7 @@ export function CartButton() {
       className="relative p-2 hover:bg-neutral-100 rounded-full transition-colors"
       aria-label="Open cart"
     >
-      <ShoppingBag size={24} weight="bold" />
+      <ShoppingBagIcon size={24} weight="bold" />
       
       <AnimatePresence>
         {totalItems > 0 && (

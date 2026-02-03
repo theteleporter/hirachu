@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["@phosphor-icons/react"],
   },
   reactCompiler: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+      },
+    ],
+    unoptimized: true, // Disable optimization for Shopify CDN images
+  },
 };
 
 export default nextConfig;

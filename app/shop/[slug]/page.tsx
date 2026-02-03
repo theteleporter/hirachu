@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { getProductBySlug, products } from "@/lib/products";
 import ClientPage from "./client-page";
 
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
@@ -34,10 +34,10 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ 
-  params 
-}: { 
-  params: Promise<{ slug: string }> 
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
   return <ClientPage params={{ slug }} />;

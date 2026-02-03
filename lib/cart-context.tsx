@@ -19,6 +19,8 @@ interface CartContextType {
   isOpen: boolean;
   openCart: () => void;
   closeCart: () => void;
+  checkout: () => Promise<void>;
+  isCheckingOut: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -27,6 +29,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isHydrated, setIsHydrated] = useState(false);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -92,6 +95,35 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
+  const checkout = async () => {
+    if (items.length === 0) return;
+
+    try {
+      setIsCheckingOut(true);
+      
+      // Import dynamically to avoid server-side issues
+      const { createCart, getProductVariantId } = await import('./shopify-checkout');
+      
+      // Get variant IDs for all products
+      const lines = await Promise.all(
+        items.map(async (item) => ({
+          merchandiseId: await getProductVariantId(item.product.slug),
+          quantity: item.quantity,
+        }))
+      );
+
+      // Create cart and get checkout URL
+      const cart = await createCart(lines);
+      
+      // Redirect to Shopify checkout
+      window.location.href = cart.checkoutUrl;
+    } catch (error) {
+      console.error('Checkout error:', error);
+      alert('Failed to create checkout. Please try again.');
+      setIsCheckingOut(false);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -105,6 +137,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         isOpen,
         openCart,
         closeCart,
+        checkout,
+        isCheckingOut,
       }}
     >
       {children}

@@ -1,21 +1,54 @@
 "use client";
+import { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Heart, ShoppingCart } from "@phosphor-icons/react";
+import { HeartIcon, ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr";
 import { useCart } from "@/lib/cart-context";
-import { getProductBySlug } from "@/lib/products";
-
-const featuredDolls = [
-  { id: 1, name: "Sakura", price: 248, image: "/images/product-shot-girl-1.png", tag: "BESTSELLER", slug: "sakura" },
-  { id: 2, name: "Luna", price: 268, image: "/images/product-shot-girl-2.png", tag: null, slug: "luna" },
-  { id: 3, name: "Violet", price: 258, image: "/images/product-shot-girl-3.png", tag: "LIMITED", slug: "violet" },
-  { id: 4, name: "Mochi", price: 238, image: "/images/product-shot-girl-4.png", tag: null, slug: "mochi" },
-];
+import { useWishlist } from "@/lib/wishlist-context";
+import { useShopifyProducts } from "@/lib/use-shopify";
 
 export const FeaturedDolls = () => {
   const { addItem } = useCart();
-  
+  const { toggleItem, isInWishlist } = useWishlist();
+  const { products, loading, error } = useShopifyProducts();
+
+  const featuredProducts = useMemo(() => {
+    return products.filter((p) => p.tag === "BESTSELLER" || p.tag === "LIMITED").slice(0, 4);
+  }, [products]);
+
+  if (loading) {
+    return (
+      <section className="px-4 md:px-10 py-16 md:py-24">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <p className="text-xs text-neutral-500 mb-2">CURATED SELECTION</p>
+            <h2 className="text-2xl md:text-3xl font-light">FEATURED DOLLS</h2>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="animate-pulse">
+              <div className="aspect-square bg-neutral-200 mb-3" />
+              <div className="h-4 bg-neutral-200 mb-2 w-3/4" />
+              <div className="h-4 bg-neutral-200 w-1/2" />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="px-4 md:px-10 py-16 md:py-24">
+        <div className="text-center text-neutral-500">
+          <p>Failed to load products. Please try again.</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="px-4 md:px-10 py-16 md:py-24">
       <div className="flex justify-between items-end mb-10">
@@ -32,25 +65,25 @@ export const FeaturedDolls = () => {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {featuredDolls.map((doll, index) => (
+        {featuredProducts.map((product, index) => (
           <motion.div
-            key={doll.id}
+            key={product.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <Link href={`/shop/${doll.slug}`} className="group cursor-pointer block">
+            <Link href={`/shop/${product.slug}`} className="group cursor-pointer block">
               <div className="relative aspect-square bg-neutral-100 mb-3 overflow-hidden">
                 <Image
-                  src={doll.image}
-                  alt={doll.name}
+                  src={product.image}
+                  alt={product.name}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                {doll.tag && (
+                {product.tag && (
                   <span className="absolute top-3 left-3 bg-black text-white text-[10px] px-2 py-1">
-                    {doll.tag}
+                    {product.tag}
                   </span>
                 )}
                 <div className="absolute bottom-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -58,26 +91,30 @@ export const FeaturedDolls = () => {
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
-                      const product = getProductBySlug(doll.slug);
-                      if (product) addItem(product);
+                      addItem(product);
                     }}
                     className="w-9 h-9 bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-colors"
                   >
-                    <ShoppingCart size={16} weight="bold" />
+                    <ShoppingCartIcon size={16} weight="bold" />
                   </button>
                   <button
                     type="button"
                     onClick={(e) => {
                       e.preventDefault();
+                      toggleItem(product);
                     }}
-                    className="w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors"
+                    className={`w-9 h-9 backdrop-blur-sm flex items-center justify-center transition-colors ${
+                      isInWishlist(product.slug)
+                        ? "bg-pink-600 text-white hover:bg-pink-700"
+                        : "bg-white/80 text-black hover:bg-white"
+                    }`}
                   >
-                    <Heart size={16} weight="light" />
+                    <HeartIcon size={16} weight={isInWishlist(product.slug) ? "fill" : "light"} />
                   </button>
                 </div>
               </div>
-              <h3 className="text-sm font-medium mb-1">{doll.name}</h3>
-              <p className="text-sm text-neutral-500">${doll.price}</p>
+              <h3 className="text-sm font-medium mb-1">{product.name}</h3>
+              <p className="text-sm text-neutral-500">${product.price}</p>
             </Link>
           </motion.div>
         ))}

@@ -3,11 +3,25 @@
 import { useCart } from '@/lib/cart-context';
 import { AnimatePresence, motion } from 'motion/react';
 import Image from 'next/image';
-import { X, Minus, Plus, ShoppingBag } from '@phosphor-icons/react/dist/ssr';
+import { XIcon, MinusIcon, PlusIcon, ShoppingBagIcon } from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 export function CartDrawer() {
-  const { items, isOpen, closeCart, updateQuantity, removeItem, totalPrice, totalItems } = useCart();
+  const { items, isOpen, closeCart, updateQuantity, removeItem, totalPrice, totalItems, checkout, isCheckingOut } = useCart();
+
+  // Lock/unlock body scroll
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -33,21 +47,21 @@ export function CartDrawer() {
             {/* Header */}
             <div className="p-6 border-b border-neutral-200 flex items-center justify-between">
               <h2 className="text-2xl font-bold flex items-center gap-2">
-                <ShoppingBag weight="duotone" className="text-pink-600" />
+                <ShoppingBagIcon weight="duotone" className="text-pink-600" />
                 Cart ({totalItems})
               </h2>
               <button
                 onClick={closeCart}
                 className="p-2 hover:bg-neutral-100 rounded-full transition-colors"
               >
-                <X size={24} />
+                <XIcon size={24} />
               </button>
             </div>
 
             {/* Cart Items */}
             {items.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-                <ShoppingBag size={80} weight="thin" className="text-neutral-300 mb-4" />
+                <ShoppingBagIcon size={80} weight="thin" className="text-neutral-300 mb-4" />
                 <p className="text-neutral-600 text-lg mb-2">Your cart is empty</p>
                 <p className="text-neutral-400 text-sm mb-6">Add some dolls to get started!</p>
                 <button
@@ -105,7 +119,7 @@ export function CartDrawer() {
                               onClick={() => updateQuantity(item.product.slug, item.quantity - 1)}
                               className="p-1 hover:bg-neutral-100 rounded-full transition-colors"
                             >
-                              <Minus size={16} weight="bold" />
+                              <MinusIcon size={16} weight="bold" />
                             </button>
                             <span className="text-sm font-semibold w-8 text-center">
                               {item.quantity}
@@ -114,7 +128,7 @@ export function CartDrawer() {
                               onClick={() => updateQuantity(item.product.slug, item.quantity + 1)}
                               className="p-1 hover:bg-neutral-100 rounded-full transition-colors"
                             >
-                              <Plus size={16} weight="bold" />
+                              <PlusIcon size={16} weight="bold" />
                             </button>
                           </div>
 
@@ -138,8 +152,12 @@ export function CartDrawer() {
                       ${totalPrice.toFixed(2)}
                     </span>
                   </div>
-                  <button className="w-full py-4 bg-pink-600 text-white rounded-full font-bold text-lg hover:bg-pink-700 transition-colors mb-3">
-                    Checkout
+                  <button 
+                    onClick={checkout}
+                    disabled={isCheckingOut}
+                    className="w-full py-4 bg-pink-600 text-white rounded-full font-bold text-lg hover:bg-pink-700 transition-colors mb-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isCheckingOut ? 'Processing...' : 'Checkout'}
                   </button>
                   <button
                     onClick={closeCart}

@@ -6,6 +6,7 @@ import { Header } from "@/components/sections/layout/header";
 import { Footer } from "@/components/sections/layout/footer";
 import { generateOrganizationSchema } from "@/lib/schema";
 import { CartProvider } from "@/lib/cart-context";
+import { WishlistProvider } from "@/lib/wishlist-context";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 
 const geistSans = Geist({
@@ -26,13 +27,21 @@ const hachiMaruPop = Hachi_Maru_Pop({
 
 export const metadata: Metadata = {
   title: "Hirachu - Handcrafted Collectible Dolls",
-  description: "Handcrafted collectible dolls where kawaii meets couture. Limited edition BJD dolls with unique styling and artisan craftsmanship.",
+  description:
+    "Handcrafted collectible dolls where kawaii meets couture. Limited edition BJD dolls with unique styling and artisan craftsmanship.",
   openGraph: {
     title: "Hirachu - Handcrafted Collectible Dolls",
     description: "Handcrafted collectible dolls where kawaii meets couture.",
     type: "website",
   },
-  keywords: ["collectible dolls", "BJD", "ball jointed dolls", "kawaii", "handcrafted", "artisan dolls"],
+  keywords: [
+    "collectible dolls",
+    "BJD",
+    "ball jointed dolls",
+    "kawaii",
+    "handcrafted",
+    "artisan dolls",
+  ],
 };
 
 export default function RootLayout({
@@ -41,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const orgSchema = generateOrganizationSchema();
-  
+
   return (
     <html lang="en">
       <head>
@@ -49,16 +58,19 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema) }}
         />
+        <meta name="apple-mobile-web-app-title" content="Hirachu" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${hachiMaruPop.variable} antialiased font-mono`}
+        className={`${geistSans.variable} ${geistMono.variable} ${hachiMaruPop.variable} antialiased font-mono selection:bg-pink-600 selection:text-black`}
       >
         <CartProvider>
-          <AnnouncementBar />
-          <Header />
-          {children}
-          <Footer />
-          <CartDrawer />
+          <WishlistProvider>
+            <AnnouncementBar />
+            <Header />
+            {children}
+            <Footer />
+            <CartDrawer />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

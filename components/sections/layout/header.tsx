@@ -1,19 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { XIcon } from "@phosphor-icons/react";
+import { XIcon, HeartIcon } from "@phosphor-icons/react/dist/ssr";
 import { CartButton } from "@/components/cart/cart-button";
+import { useWishlist } from "@/lib/wishlist-context";
 
 const menuLinks = [
-  { label: "Home", href: "/", description: "Back to start" },
-  { label: "Shop", href: "/shop", description: "Browse dolls" },
-  { label: "About", href: "/about", description: "Our story" },
-  { label: "Contact", href: "/contact", description: "Get in touch" },
+  { label: "Home", href: "/" },
+  { label: "Shop", href: "/shop" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { totalItems } = useWishlist();
+
+  // Lock/unlock body scroll
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
 
   return (
     <>
@@ -22,6 +37,17 @@ export const Header = () => {
           Hirachu
         </Link>
         <div className="flex items-center gap-2">
+          <Link
+            href="/wishlist"
+            className="relative p-2 hover:bg-neutral-100 rounded-full transition-colors"
+          >
+            <HeartIcon size={24} weight="light" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-600 text-white text-xs rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </Link>
           <CartButton />
           <button
             type="button"
@@ -42,7 +68,7 @@ export const Header = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50"
               onClick={() => setIsMenuOpen(false)}
             />
 
@@ -52,73 +78,66 @@ export const Header = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed top-0 right-0 h-screen w-full md:w-[500px] bg-white z-50 shadow-2xl"
+              className="fixed top-0 right-0 h-screen w-full md:w-[600px] bg-white z-50 shadow-2xl"
             >
               <div className="relative h-full flex flex-col">
-                {/* Close Button */}
-                <div className="flex justify-between items-center p-6 border-b">
-                  <span className="font-hachi text-2xl">menu</span>
+                {/* Header */}
+                <div className="flex justify-end items-center p-6 md:p-8 border-b border-neutral-200">
                   <button
                     type="button"
-                    className="w-10 h-10 flex items-center justify-center border border-black hover:bg-black hover:text-white transition-all duration-300"
+                    className="w-12 h-12 border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    <XIcon size={20} weight="light" />
+                    <XIcon size={20} weight="regular" />
                   </button>
                 </div>
 
-                {/* Navigation Links */}
-                <nav className="flex-1 flex flex-col justify-center px-8 py-12 space-y-2">
-                  {menuLinks.map((link, index) => (
-                    <motion.div
-                      key={link.label}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 + index * 0.1, duration: 0.4 }}
-                    >
-                      <Link
-                        href={link.href}
-                        className="group block py-4 border-b border-neutral-200"
-                        onClick={() => setIsMenuOpen(false)}
+                {/* Navigation */}
+                <nav className="flex-1 flex flex-col justify-center px-8 md:px-12">
+                  <div className="space-y-1">
+                    {menuLinks.map((link, index) => (
+                      <motion.div
+                        key={link.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + index * 0.05, duration: 0.4 }}
                       >
-                        <div className="flex items-baseline justify-between">
-                          <span className="text-4xl md:text-5xl font-light group-hover:translate-x-2 transition-transform duration-300">
+                        <Link
+                          href={link.href}
+                          className="group block py-4 border-b border-neutral-200"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <span className="text-4xl md:text-5xl font-light group-hover:opacity-60 transition-opacity">
                             {link.label}
                           </span>
-                          <span className="text-xs text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            →
-                          </span>
-                        </div>
-                        <span className="text-xs text-neutral-500 font-light uppercase tracking-wide">
-                          {link.description}
-                        </span>
-                      </Link>
-                    </motion.div>
-                  ))}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
                 </nav>
 
-                {/* Footer Info */}
+                {/* Footer */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
-                  className="p-8 border-t bg-neutral-50"
+                  transition={{ delay: 0.4 }}
+                  className="p-8 md:p-12 border-t border-neutral-200"
                 >
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <p className="text-xs text-neutral-500 mb-1">FOLLOW US</p>
-                      <div className="flex gap-4 text-sm">
+                      <p className="text-[10px] tracking-[0.3em] mb-3 text-neutral-400">CONNECT</p>
+                      <div className="space-y-2">
                         <a
-                          href="https://instagram.com/hirachu"
-                          className="hover:underline"
+                          href="mailto:hello@hirachu.com"
+                          className="block text-base text-neutral-600 hover:text-black transition-colors"
                         >
-                          Instagram
+                          hello@hirachu.com
                         </a>
                         <a
-                          href="https://x.com/hirachu"
-                          className="hover:underline"
+                          href="#"
+                          className="block text-base text-neutral-600 hover:text-black transition-colors"
                         >
-                          Twitter
+                          Instagram
                         </a>
                       </div>
                     </div>

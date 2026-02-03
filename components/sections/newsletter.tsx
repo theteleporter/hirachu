@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "motion/react";
-import { PaperPlaneTilt } from "@phosphor-icons/react";
+import { PaperPlaneTiltIcon } from "@phosphor-icons/react/dist/ssr";
 
 export const Newsletter = () => {
   const [email, setEmail] = useState("");
@@ -44,7 +44,7 @@ export const Newsletter = () => {
             type="submit"
             className="flex items-center justify-center gap-2 bg-black text-white px-6 py-3 text-sm hover:bg-neutral-800 transition-colors"
           >
-            SUBSCRIBE <PaperPlaneTilt size={16} weight="light" />
+            SUBSCRIBE <PaperPlaneTiltIcon size={16} weight="light" />
           </button>
         </form>
 

@@ -1,12 +1,13 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Heart, ShoppingCart } from "@phosphor-icons/react";
-import { products, type Product } from "@/lib/products";
+import { HeartIcon, ShoppingCartIcon } from "@phosphor-icons/react/dist/ssr";
 import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
 import { useSearchParams } from "next/navigation";
+import { useShopifyProducts } from "@/lib/use-shopify";
 
 export default function ShopPage() {
   const searchParams = useSearchParams();
@@ -14,6 +15,8 @@ export default function ShopPage() {
   const [filter, setFilter] = useState<"all" | "girl" | "boy">(
     filterParam && (filterParam === "girl" || filterParam === "boy") ? filterParam : "all"
   );
+  const { products, loading, error } = useShopifyProducts();
+  const { addItem } = useCart();
   
   useEffect(() => {
     if (filterParam && (filterParam === "girl" || filterParam === "boy")) {
@@ -21,9 +24,39 @@ export default function ShopPage() {
     }
   }, [filterParam]);
   
-  const filteredProducts = filter === "all" 
-    ? products 
-    : products.filter(p => p.category === filter);
+  const filteredProducts = useMemo(() => {
+    if (filter === "all") return products;
+    return products.filter(p => p.category === filter);
+  }, [products, filter]);
+
+  if (loading) {
+    return (
+      <main className="px-4 md:px-10 py-12 md:py-16">
+        <div className="mb-12">
+          <h1 className="text-3xl md:text-4xl font-light mb-3">ALL DOLLS</h1>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+            <div key={i} className="animate-pulse">
+              <div className="aspect-square bg-neutral-200 mb-3" />
+              <div className="h-4 bg-neutral-200 mb-2 w-3/4" />
+              <div className="h-4 bg-neutral-200 w-1/2" />
+            </div>
+          ))}
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="px-4 md:px-10 py-12 md:py-16">
+        <div className="text-center text-neutral-500">
+          <p>Failed to load products. Please try again.</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="px-4 md:px-10 py-12 md:py-16">
@@ -89,8 +122,9 @@ export default function ShopPage() {
   );
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product }: { product: any }) {
   const { addItem } = useCart();
+  const { toggleItem, isInWishlist } = useWishlist();
   
   return (
     <Link href={`/shop/${product.slug}`} className="group cursor-pointer block">
@@ -116,16 +150,21 @@ function ProductCard({ product }: { product: Product }) {
             }}
             className="w-9 h-9 bg-black text-white flex items-center justify-center hover:bg-neutral-800 transition-colors"
           >
-            <ShoppingCart size={16} weight="bold" />
+            <ShoppingCartIcon size={16} weight="bold" />
           </button>
           <button
             type="button"
             onClick={(e) => {
               e.preventDefault();
+              toggleItem(product);
             }}
-            className="w-9 h-9 bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white transition-colors"
+            className={`w-9 h-9 backdrop-blur-sm flex items-center justify-center transition-colors ${
+              isInWishlist(product.slug)
+                ? "bg-pink-600 text-white hover:bg-pink-700"
+                : "bg-white/80 text-black hover:bg-white"
+            }`}
           >
-            <Heart size={16} weight="light" />
+            <HeartIcon size={16} weight={isInWishlist(product.slug) ? "fill" : "light"} />
           </button>
         </div>
       </div>

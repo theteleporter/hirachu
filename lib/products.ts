@@ -1,4 +1,6 @@
-// Product data - ready for Shopify integration
+import { shopifyGraphQL } from "./shopify";
+
+// Product data interface
 export interface Product {
   id: string;
   slug: string;
@@ -12,6 +14,100 @@ export interface Product {
   inStock: boolean;
 }
 
+// GraphQL queries
+export const PRODUCTS_QUERY = `
+  query GetProducts($first: Int!) {
+    products(first: $first) {
+      edges {
+        node {
+          id
+          handle
+          title
+          description
+          priceRange {
+            minVariantPrice {
+              amount
+            }
+          }
+          images(first: 5) {
+            edges {
+              node {
+                url
+                altText
+              }
+            }
+          }
+          tags
+          availableForSale
+        }
+      }
+    }
+  }
+`;
+
+export const PRODUCT_BY_HANDLE_QUERY = `
+  query GetProductByHandle($handle: String!) {
+    product(handle: $handle) {
+      id
+      handle
+      title
+      description
+      priceRange {
+        minVariantPrice {
+          amount
+        }
+      }
+      images(first: 5) {
+        edges {
+          node {
+            url
+            altText
+          }
+        }
+      }
+      tags
+      availableForSale
+    }
+  }
+`;
+
+// Transform Shopify product to our Product interface
+export function transformShopifyProduct(shopifyProduct: any): Product {
+  const tags = shopifyProduct.tags || [];
+  const category = tags.includes("boy") ? "boy" : "girl";
+  
+  let tag: "BESTSELLER" | "LIMITED" | "NEW" | undefined;
+  if (tags.includes("bestseller")) tag = "BESTSELLER";
+  else if (tags.includes("limited")) tag = "LIMITED";
+  else if (tags.includes("new")) tag = "NEW";
+
+  const images = shopifyProduct.images?.edges?.map((edge: any) => edge.node.url) || [];
+
+  return {
+    id: shopifyProduct.id.split("/").pop() || shopifyProduct.id,
+    slug: shopifyProduct.handle,
+    name: shopifyProduct.title,
+    price: parseFloat(shopifyProduct.priceRange.minVariantPrice.amount),
+    description: shopifyProduct.description || "",
+    image: images[0] || "/images/placeholder.png",
+    images,
+    category,
+    tag,
+    inStock: shopifyProduct.availableForSale,
+  };
+}
+
+// Fetch all products from Shopify
+export async function getAllProducts(): Promise<Product[]> {
+  const data = await shopifyGraphQL<{ products: { edges: { node: any }[] } }>(
+    PRODUCTS_QUERY,
+    { first: 50 }
+  );
+
+  return data.products.edges.map(edge => transformShopifyProduct(edge.node));
+}
+
+// Static fallback products (keeping your original data as fallback)
 export const products: Product[] = [
   {
     id: "1",
@@ -154,18 +250,31 @@ export const products: Product[] = [
   },
 ];
 
-export const getProductBySlug = (slug: string): Product | undefined => {
-  return products.find((p) => p.slug === slug);
-};
+// Get product by slug from Shopify
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const data = await shopifyGraphQL<{ product: any }>(
+    PRODUCT_BY_HANDLE_QUERY,
+    { handle: slug }
+  );
 
-export const getProductsByCategory = (category: "girl" | "boy"): Product[] => {
-  return products.filter((p) => p.category === category);
-};
+  if (!data.product) return undefined;
+  return transformShopifyProduct(data.product);
+}
 
-export const getFeaturedProducts = (): Product[] => {
-  return products.filter((p) => p.tag === "BESTSELLER" || p.id === "1" || p.id === "2" || p.id === "3" || p.id === "4");
-};
+// Get products by category from Shopify
+export async function getProductsByCategory(category: "girl" | "boy"): Promise<Product[]> {
+  const allProducts = await getAllProducts();
+  return allProducts.filter((p) => p.category === category);
+}
 
-export const getNewArrivals = (): Product[] => {
-  return products.filter((p) => p.tag === "NEW");
-};
+// Get featured products from Shopify
+export async function getFeaturedProducts(): Promise<Product[]> {
+  const allProducts = await getAllProducts();
+  return allProducts.filter((p) => p.tag === "BESTSELLER").slice(0, 4);
+}
+
+// Get new arrivals from Shopify
+export async function getNewArrivals(): Promise<Product[]> {
+  const allProducts = await getAllProducts();
+  return allProducts.filter((p) => p.tag === "NEW");
+}
