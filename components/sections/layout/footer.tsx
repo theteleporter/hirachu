@@ -1,39 +1,59 @@
+"use client";
 import Link from "next/link";
+import { useActionState } from "react";
+import { subscribeToNewsletter } from "@/lib/actions";
 
-export const Footer = () => (
-  <footer className="border-t border-neutral-200">
-    {/* Main Footer */}
-    <div className="px-4 md:px-10 py-20 md:py-24">
-      <div className="max-w-7xl mx-auto">
-        {/* Top Row - Brand + Newsletter */}
-        <div className="grid md:grid-cols-2 gap-12 pb-16 md:pb-20 border-b border-neutral-200">
-          <div>
-            <h3 className="font-hachi text-4xl md:text-5xl mb-4 lowercase leading-tight">
-              hirachu
-            </h3>
-            <p className="text-base text-neutral-600 font-light leading-relaxed max-w-sm">
-              Handcrafted collectible dolls.
-              <br />
-              Where kawaii meets couture.
-            </p>
-          </div>
+export const Footer = () => {
+  const [state, formAction, isPending] = useActionState(subscribeToNewsletter, null);
 
-          <div className="flex flex-col justify-end">
-            <p className="text-xs tracking-[0.2em] mb-4 font-medium">
-              STAY UPDATED
-            </p>
-            <div className="flex gap-2">
-              <input
-                type="email"
-                placeholder="you@email.com"
-                className="flex-1 px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
-              />
-              <button className="px-6 py-3 border-b border-black text-xs tracking-[0.2em] font-medium hover:bg-black hover:text-white transition-colors">
-                JOIN
-              </button>
+  return (
+    <footer className="border-t border-neutral-200">
+      {/* Main Footer */}
+      <div className="px-4 md:px-10 py-20 md:py-24">
+        <div className="max-w-7xl mx-auto">
+          {/* Top Row - Brand + Newsletter */}
+          <div className="grid md:grid-cols-2 gap-12 pb-16 md:pb-20 border-b border-neutral-200">
+            <div>
+              <h3 className="font-hachi text-4xl md:text-5xl mb-4 lowercase leading-tight">
+                hirachu
+              </h3>
+              <p className="text-base text-neutral-600 font-light leading-relaxed max-w-sm">
+                Handcrafted collectible dolls.
+                <br />
+                Where kawaii meets couture.
+              </p>
+            </div>
+
+            <div className="flex flex-col justify-end">
+              <p className="text-xs tracking-[0.2em] mb-4 font-medium">
+                STAY UPDATED
+              </p>
+              <form action={formAction} className="flex gap-2">
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="you@email.com"
+                  required
+                  disabled={isPending}
+                  className="flex-1 px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="px-6 py-3 border-b border-black text-xs tracking-[0.2em] font-medium hover:bg-black hover:text-white transition-colors disabled:opacity-50"
+                >
+                  {isPending ? "..." : "JOIN"}
+                </button>
+              </form>
+              {state && (
+                <p
+                  className={`text-xs mt-2 ${state.success ? "text-green-600" : "text-red-600"}`}
+                >
+                  {state.success ? state.message : state.error}
+                </p>
+              )}
             </div>
           </div>
-        </div>
 
         {/* Bottom Row - Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 pt-16 md:pt-20">
@@ -116,6 +136,7 @@ export const Footer = () => (
     </div>
   </footer>
 );
+};
 
 const shopLinks = [
   { text: "All Dolls", urlTo: "/shop" },

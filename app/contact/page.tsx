@@ -1,32 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useActionState } from "react";
 import { motion } from "motion/react";
 import {
   PaperPlaneTiltIcon,
   InstagramLogoIcon,
   XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import { submitContactForm } from "@/lib/actions";
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // TODO: Connect to email service
-    console.log("Contact form:", formData);
-    alert("Thank you for reaching out! We'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [state, formAction, isPending] = useActionState(submitContactForm, null);
 
   return (
     <main>
@@ -65,7 +48,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="md:col-span-7"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action={formAction} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"
@@ -77,10 +60,9 @@ export default function ContactPage() {
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name}
-                  onChange={handleChange}
                   required
-                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
+                  disabled={isPending}
+                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent disabled:opacity-50"
                 />
               </div>
 
@@ -95,10 +77,9 @@ export default function ContactPage() {
                   type="email"
                   id="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
-                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
+                  disabled={isPending}
+                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent disabled:opacity-50"
                 />
               </div>
 
@@ -112,20 +93,28 @@ export default function ContactPage() {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
                   required
+                  disabled={isPending}
                   rows={6}
-                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors resize-none bg-transparent"
+                  className="w-full px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors resize-none bg-transparent disabled:opacity-50"
                 />
               </div>
 
+              {state && (
+                <p
+                  className={`text-sm ${state.success ? "text-green-600" : "text-red-600"}`}
+                >
+                  {state.success ? state.message : state.error}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="group flex items-center gap-4 pt-4"
+                disabled={isPending}
+                className="group flex items-center gap-4 pt-4 disabled:opacity-50"
               >
                 <span className="text-xs tracking-[0.3em] font-medium">
-                  SEND MESSAGE
+                  {isPending ? "SENDING..." : "SEND MESSAGE"}
                 </span>
                 <div className="w-12 h-12 border border-black flex items-center justify-center group-hover:bg-black transition-colors">
                   <PaperPlaneTiltIcon

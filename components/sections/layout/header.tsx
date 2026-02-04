@@ -84,7 +84,8 @@ export const Header = () => {
             >
               <div className="relative h-full flex flex-col">
                 {/* Header */}
-                <div className="flex justify-end items-center p-6 md:p-8 border-b border-neutral-200">
+                <div className="flex justify-between items-center p-6 md:p-8 border-b border-neutral-200">
+                  <h3 className="font-hachi text-2xl lowercase">hirachu</h3>
                   <button
                     type="button"
                     className="w-12 h-12 border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors"
