@@ -2,7 +2,7 @@ import { Product } from "./products";
 
 export function generateProductSchema(
   product: Product,
-  baseUrl: string = "https://hirachu.com",
+  baseUrl: string = "https://hirachu.vercel.app",
 ) {
   return {
     "@context": "https://schema.org",
@@ -28,7 +28,7 @@ export function generateProductSchema(
 }
 
 export function generateOrganizationSchema(
-  baseUrl: string = "https://hirachu.com",
+  baseUrl: string = "https://hirachu.vercel.app",
 ) {
   return {
     "@context": "https://schema.org",

@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { products } from "@/lib/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://hirachu.com";
+  const baseUrl = "https://hirachu.vercel.app";
 
   const productUrls = products.map((product) => ({
     url: `${baseUrl}/shop/${product.slug}`,
