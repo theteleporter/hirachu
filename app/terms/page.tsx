@@ -3,6 +3,25 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions - Hirachu",
   description: "Terms and conditions for purchasing from Hirachu.",
+  openGraph: {
+    title: "Terms & Conditions - Hirachu",
+    description: "Terms and conditions for purchasing from Hirachu.",
+    url: "https://hirachu.vercel.app/terms",
+    images: [
+      {
+        url: "/api/og?title=Terms%20%26%20Conditions&subtitle=Legal%20%C2%B7%20Tokyo",
+        width: 1200,
+        height: 630,
+        alt: "Hirachu Terms & Conditions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions - Hirachu",
+    description: "Terms and conditions for purchasing from Hirachu.",
+    images: ["/api/og?title=Terms%20%26%20Conditions&subtitle=Legal%20%C2%B7%20Tokyo"],
+  },
 };
 
 export default function TermsPage() {

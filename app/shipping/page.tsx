@@ -3,6 +3,25 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Shipping Information - Hirachu",
   description: "Shipping rates, delivery times, and international orders.",
+  openGraph: {
+    title: "Shipping Information - Hirachu",
+    description: "Shipping rates, delivery times, and international orders.",
+    url: "https://hirachu.vercel.app/shipping",
+    images: [
+      {
+        url: "/api/og?title=Shipping%20Info&subtitle=Worldwide%20%C2%B7%20Tracked",
+        width: 1200,
+        height: 630,
+        alt: "Hirachu Shipping Information",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shipping Information - Hirachu",
+    description: "Shipping rates, delivery times, and international orders.",
+    images: ["/api/og?title=Shipping%20Info&subtitle=Worldwide%20%C2%B7%20Tracked"],
+  },
 };
 
 export default function ShippingPage() {

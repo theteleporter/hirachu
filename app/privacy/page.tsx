@@ -3,6 +3,25 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy - Hirachu",
   description: "Our privacy policy and how we handle your data.",
+  openGraph: {
+    title: "Privacy Policy - Hirachu",
+    description: "Our privacy policy and how we handle your data.",
+    url: "https://hirachu.vercel.app/privacy",
+    images: [
+      {
+        url: "/api/og?title=Privacy%20Policy&subtitle=Your%20Data%20%C2%B7%20Protected",
+        width: 1200,
+        height: 630,
+        alt: "Hirachu Privacy Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy - Hirachu",
+    description: "Our privacy policy and how we handle your data.",
+    images: ["/api/og?title=Privacy%20Policy&subtitle=Your%20Data%20%C2%B7%20Protected"],
+  },
 };
 
 export default function PrivacyPage() {
