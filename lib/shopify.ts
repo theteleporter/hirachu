@@ -1,9 +1,9 @@
 import { createStorefrontClient } from "@shopify/hydrogen-react";
 
 const client = createStorefrontClient({
-  storeDomain: process.env.SHOPIFY_STORE_DOMAIN!,
+  storeDomain: process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN || process.env.SHOPIFY_STORE_DOMAIN!,
   storefrontApiVersion: "2025-10",
-  publicStorefrontToken: process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
+  publicStorefrontToken: process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!,
 });
 
 export const shopifyFetch = client.getPublicTokenHeaders;
