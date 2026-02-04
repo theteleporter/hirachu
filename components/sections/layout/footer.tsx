@@ -117,18 +117,22 @@ export const Footer = () => {
               CONNECT
             </h4>
             <div className="space-y-6">
-              <a
+              <Link
                 href="https://www.instagram.com/hirachu"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
               >
                 Instagram
-              </a>
-              <a
+              </Link>
+              <Link
                 href="https://x.com/hirachu"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
               >
                 Twitter
-              </a>
+              </Link>
             </div>
           </div>
         </div>

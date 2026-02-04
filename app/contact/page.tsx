@@ -7,6 +7,7 @@ import {
   XLogoIcon,
 } from "@phosphor-icons/react/dist/ssr";
 import { submitContactForm } from "@/lib/actions";
+import Link from "next/link";
 
 export default function ContactPage() {
   const [state, formAction, isPending] = useActionState(submitContactForm, null);
@@ -151,18 +152,22 @@ export default function ContactPage() {
                 SOCIALS
               </h3>
               <div className="flex gap-3">
-                <a
+                <Link
                   href="https://instagram.com/hirachu"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all"
                 >
                   <InstagramLogoIcon size={18} weight="regular" />
-                </a>
-                <a
+                </Link>
+                <Link
                   href="https://x.com/hirachu"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 border border-neutral-300 flex items-center justify-center hover:bg-black hover:text-white hover:border-black transition-all"
                 >
                   <XLogoIcon size={18} weight="regular" />
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>
