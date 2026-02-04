@@ -25,7 +25,7 @@ export const Footer = () => (
             <div className="flex gap-2">
               <input
                 type="email"
-                placeholder="your@email.com"
+                placeholder="you@email.com"
                 className="flex-1 px-0 py-3 border-b border-neutral-300 text-base focus:outline-none focus:border-black transition-colors bg-transparent"
               />
               <button className="px-6 py-3 border-b border-black text-xs tracking-[0.2em] font-medium hover:bg-black hover:text-white transition-colors">
@@ -98,13 +98,13 @@ export const Footer = () => (
             </h4>
             <div className="space-y-6">
               <a
-                href="#"
+                href="https://www.instagram.com/hirachu"
                 className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
               >
                 Instagram
               </a>
               <a
-                href="#"
+                href="https://x.com/hirachu"
                 className="flex items-center gap-2 text-base text-neutral-600 hover:text-black transition-colors"
               >
                 Twitter

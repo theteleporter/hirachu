@@ -10,6 +10,7 @@ import { WishlistProvider } from "@/lib/wishlist-context";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { ServiceWorkerRegister } from "@/components/service-worker-register";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -93,6 +94,7 @@ export default function RootLayout({
             {children}
             <Footer />
             <CartDrawer />
+            <ServiceWorkerRegister />
             <Analytics />
             <SpeedInsights />
           </WishlistProvider>

@@ -1,33 +1,23 @@
-import type { Metadata } from "next";
-import { AboutContent } from "./about-content";
+"use client";
+import Image from "next/image";
+import { motion } from "motion/react";
 
-export const metadata: Metadata = {
-  title: "About Us - Hirachu",
-  description: "Handcrafted Japanese dolls where tradition meets contemporary fashion. Each Hirachu doll is a labor of love, meticulously created by artisans.",
-  openGraph: {
-    title: "About Us - Hirachu",
-    description: "Handcrafted Japanese dolls where tradition meets contemporary fashion.",
-    images: [
-      {
-        url: "/api/og?title=About Hirachu&subtitle=Crafted with Love · Tokyo",
-        width: 1200,
-        height: 630,
-        alt: "About Hirachu",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us - Hirachu",
-    description: "Handcrafted Japanese dolls where tradition meets contemporary fashion.",
-    images: ["/api/og?title=About Hirachu&subtitle=Crafted with Love · Tokyo"],
-  },
-};
-
-export default function AboutPage() {
-  return <AboutContent />;
-}
-
+export function AboutContent() {
+  return (
+    <main>
+      {/* Hero - Editorial Style */}
+      <section className="relative min-h-screen flex items-center border-b">
+        <div className="absolute inset-0 grid md:grid-cols-2">
+          <div className="relative bg-neutral-100">
+            <Image
+              src="/images/lifestyle-shot.png"
+              alt="Hirachu dolls"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="bg-neutral-50"></div>
         </div>
         
         <div className="relative z-10 w-full px-4 md:px-10 py-24">

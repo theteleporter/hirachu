@@ -130,13 +130,13 @@ export const Header = () => {
                       <p className="text-[10px] tracking-[0.3em] mb-3 text-neutral-400">CONNECT</p>
                       <div className="space-y-2">
                         <a
-                          href="mailto:hello@hirachu.com"
+                          href="https://x.com/hirachu"
                           className="block text-base text-neutral-600 hover:text-black transition-colors"
                         >
-                          hello@hirachu.com
+                          Twitter
                         </a>
                         <a
-                          href="#"
+                          href="https://www.instagram.com/hirachu"
                           className="block text-base text-neutral-600 hover:text-black transition-colors"
                         >
                           Instagram
