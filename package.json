@@ -1,6 +1,9 @@
 {
   "name": "hirachu",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Modern e-commerce storefront for handcrafted Japanese dolls with Shopify integration",
+  "author": "The Teleporter (https://dex.codes)",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",

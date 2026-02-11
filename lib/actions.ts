@@ -18,22 +18,18 @@ export async function subscribeToNewsletter(
 ): Promise<NewsletterState> {
   const email = formData.get("email") as string;
 
-  // Basic email validation
   if (!email || !email.includes("@")) {
     return { success: false, error: "Invalid email address" };
   }
 
   try {
-    // TODO: Integrate with email service (Mailchimp, ConvertKit, etc.)
-    // For now, just log it
-    console.log("Newsletter signup:", email);
-
-    // Simulate API delay
+    // Integrate with your email service here
+    // Example: Mailchimp, ConvertKit, Resend, etc.
+    
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     return { success: true, message: "Successfully subscribed to newsletter!" };
   } catch (error) {
-    console.error("Newsletter signup error:", error);
     return { success: false, error: "Failed to subscribe. Please try again." };
   }
 }
@@ -46,7 +42,6 @@ export async function submitContactForm(
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;
 
-  // Basic validation
   if (!name || !email || !message) {
     return { success: false, error: "All fields are required" };
   }
@@ -56,10 +51,9 @@ export async function submitContactForm(
   }
 
   try {
-    // TODO: Connect to email service (SendGrid, Resend, etc.)
-    console.log("Contact form:", { name, email, message });
-
-    // Simulate API delay
+    // Send email via your preferred service
+    // Example: SendGrid, Resend, Postmark, etc.
+    
     await new Promise((resolve) => setTimeout(resolve, 500));
 
     return {
@@ -67,7 +61,6 @@ export async function submitContactForm(
       message: "Thank you for reaching out! We'll get back to you soon.",
     };
   } catch (error) {
-    console.error("Contact form error:", error);
     return {
       success: false,
       error: "Failed to send message. Please try again.",

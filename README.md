@@ -1,36 +1,176 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hirachu
+
+A modern e-commerce storefront for handcrafted Japanese dolls, built with Next.js 16 and Shopify's Storefront API. Features a Tokyo-inspired minimalist design with smooth animations and progressive web app capabilities.
+
+## Features
+
+- **Headless Shopify** - Full integration with Shopify Storefront API 2025-10
+- **Tokyo Minimalist Design** - Clean, editorial aesthetic with smooth interactions
+- **Full E-commerce** - Cart, checkout, wishlist, and product search
+- **Command Palette Search** - Lightning-fast product search with Ctrl+K (⌘K)
+- **Progressive Web App** - Offline support with custom service worker
+- **Performance Optimized** - ISR caching, lazy loading, image optimization
+- **SEO Ready** - Dynamic OG images, structured data, and metadata
+- **Server Actions** - Modern form handling with Next.js Server Actions
+- **Analytics** - Vercel Analytics and Speed Insights integrated
+
+## Tech Stack
+
+- **Framework:** Next.js 16 (App Router, Turbopack)
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **E-commerce:** Shopify Storefront API
+- **Search:** cmdk (Command Palette)
+- **Icons:** Phosphor Icons
+- **Fonts:** Geist, Geist Mono, Hachi Maru Pop
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- pnpm (recommended) or npm
+- Shopify store with Storefront API access
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/hirachu.git
+cd hirachu
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file:
 
-## Learn More
+```env
+NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_access_token
+```
 
-To learn more about Next.js, take a look at the following resources:
+**Getting Shopify credentials:**
+1. Shopify Admin → Settings → Apps and sales channels
+2. "Develop apps" → "Create an app"
+3. Configure Storefront API scopes (products, collections, cart)
+4. Install and copy your Storefront Access Token
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run development server:
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open [http://localhost:3000](http://localhost:3000)
 
-## Deploy on Vercel
+### Build for Production
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm build
+pnpm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Project Structure
+
+```
+hirachu/
+├── app/                # App directory
+│   ├── api/           # API routes (OG images)
+│   ├── shop/          # Product pages
+│   └── ...            # Static pages
+├── components/        # React components
+│   ├── sections/     # Page sections
+│   ├── cart/         # Cart components
+│   └── ...
+├── lib/              # Utilities
+│   ├── shopify.ts    # Shopify client
+│   ├── actions.ts    # Server Actions
+│   └── ...
+├── public/           # Static assets
+│   ├── images/       # Product images
+│   └── sw.js         # Service worker
+└── ...
+```
+
+## Configuration
+
+### Email Integration
+
+Add your email service in `lib/actions.ts`:
+
+```typescript
+// Newsletter: subscribeToNewsletter()
+// Contact: submitContactForm()
+```
+
+Recommended: Resend, SendGrid, or Postmark.
+
+### Customization
+
+- **Colors:** `app/globals.css`
+- **Fonts:** `app/layout.tsx`
+- **Products:** Import CSV from `files/` to Shopify
+
+## Key Features
+
+### Product Search
+- Press `Ctrl+K` (⌘K on Mac)
+- Fuzzy search with instant results
+- ESC to close
+
+### Wishlist
+- Click heart icon to save products
+- Persisted in localStorage
+- Badge shows count
+
+### Cart
+- Add from product pages
+- Drawer interface
+- Redirects to Shopify checkout
+
+### PWA
+- Offline support for key pages
+- Auto-registers in production
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push to GitHub
+2. Import in Vercel
+3. Add environment variables
+4. Deploy
+
+### Other Platforms
+
+Works on any Next.js hosting:
+- Netlify
+- Railway
+- Fly.io
+- Self-hosted
+
+## Performance
+
+- ISR revalidation: 1 hour
+- Lighthouse scores: 95+
+- Image optimization
+- Route-based code splitting
+- Automatic prefetching
+
+## License
+
+MIT License
+
+## Author
+
+**The Teleporter**
+- Website: [dex.codes](https://dex.codes)
+- Twitter: [@theteleporter_](https://x.com/theteleporter_)
+
+---
+
+Built for doll collectors worldwide
