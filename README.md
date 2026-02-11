@@ -36,7 +36,7 @@ A modern e-commerce storefront for handcrafted Japanese dolls, built with Next.j
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/hirachu.git
+git clone https://github.com/theteleporter/hirachu.git
 cd hirachu
 ```
 
